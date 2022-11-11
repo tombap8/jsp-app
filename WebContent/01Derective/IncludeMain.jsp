@@ -11,11 +11,10 @@
 <body>
 <h1>
 	<%
-	
 		// 내장객체 중 out : 출력객체
-		out.println("오늘날짜출력:" + today);
+		out.println("★오늘날짜출력:" + today);
 		out.println("<br>");
-		out.println("오늘날짜출력:" + tomorrow);
+		out.println("★오늘날짜출력:" + tomorrow);
 	
 	%>
 </h1>
