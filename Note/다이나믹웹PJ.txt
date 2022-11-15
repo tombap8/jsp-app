@@ -1,7 +1,5 @@
 [Dynamic Web Project의 폴더구조]
 
- 
-
 1. WebContent
 HTML이나 JSP와 같이 컴파일 되지 않아도 되는 파일들
 
