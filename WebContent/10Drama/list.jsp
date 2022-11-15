@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- DB연결 객체 임포트 필수! -->
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,19 +31,122 @@
                     <th>방영횟수</th>
                 </tr>
             </thead>
+            
+            <%
+            /////// 동적 데이터 바인딩 영역 //////////
+            
+            // POST 방식의 한글처리
+            request.setCharacterEncoding("UTF-8");
+            
+            try{
+         		
+             	// DB와 연결하려면 해당 DB의 jar파일이 DB폴더의
+             	// lib 폴더안에 위치해 있어야한다!
+             	// MySQL 설치폴더
+             	// C:\Program Files\Apache Software Foundation
+             	// \Tomcat 9.0\lib
+             	// mysql-connector.jar 파일 이것!!!! 확인!
+             	// 다이나믹 웹 프로젝트에서는 WEB-INF>lib 폴더에 넣는다!(관리용이)
+             	
+             	// 1. DB 연결 문자열값 만들기!
+             	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
+             	// 형식 -> jdbc:db시스템종류://db아이피/db이름
+             	// MySQL -> jdbc:mysql://localhost:3306/mydb
+             	
+             	// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
+             	String DB_USER = "root";
+             	
+             	// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
+             	String DB_PWD = "";
+             	
+             	
+             	// 4. 연결객체 선언
+             	Connection conn = null;
+             	
+             	// 5. 쿼리문 저장객체
+             	PreparedStatement pstmt = null;
+             	
+             	// 6. 결과저장 객체
+             	ResultSet rs = null;
+             	
+             	// 7. 쿼리문작성 할당
+             	String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC";
+             	
+             	// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
+             	Class.forName("com.mysql.jdbc.Driver");
+             	// lib폴더의 jar파일과 연결!
+             	
+             	// 9. DB연결하기
+             	conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PWD);
+             	
+             	// 10. 성공메시지띄우기
+             	out.println("DB연결 성공하였습니다!");
+             	
+             	// 11. 쿼리문 연결 사용준비하기
+             	// conn연결된 DB객체
+             	pstmt = conn.prepareStatement(query);
+             	// prepareStatement(쿼리문변수)
+             	// - 쿼리문을 DB에 보낼 상태완료!
+             	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
+             	
+             	// 12. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
+             	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
+             	rs = pstmt.executeQuery();
+             	// executeQuery() 쿼리실행 메서드
+             	
+             	
+             	/////////////////////////////////////////////////
+             	%>
+            
             <!-- 3.테이블 메인부분 -->
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a href="#">경찰수업</a></td>
-                    <td>진영,차태현</td>
-                    <td>KBS2</td>
-                    <td>월화</td>
-                    <td>오후 09:30</td>
-                    <td>16부작</td>
-                </tr>
+            
+            <% 
+            ////////////////////////////////////////////////////
+            
+            
+//                 <tr>
+//                     <td>1</td>
+//                     <td><a href="#">경찰수업</a></td>
+//                     <td>진영,차태현</td>
+//                     <td>KBS2</td>
+//                     <td>월화</td>
+//                     <td>오후 09:30</td>
+//                     <td>16부작</td>
+//                 </tr>
                 
+                
+            
+            ///////////////////////////////////////////////////
+            %>
+            
             </tbody>
+            
+             	<%
+             	//////////////////////////////////////////////////
+             	
+             	// 11. 연결해제하기
+//              	rs.close();
+//              	pstmt.close();
+             	conn.close();
+             	
+
+             	} //// try /////
+             	catch(Exception e) {
+             		// DB연결 실패시 여기로 들어옴!
+             		out.println("에러메시지:");
+             		out.println(e.toString());
+             		// toString() 문자데이터로 변환하는 메서드
+             	} ///// catch //////
+             	
+             	
+            
+            
+            
+            %>
+            
+            
+            
             <!-- 4.테이블 하단부분-->
             <tfoot>
                 <tr>
