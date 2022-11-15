@@ -54,13 +54,17 @@
  	// 10. 성공메시지띄우기
  	out.println("DB연결 성공하였습니다!");
  	
+ 	// 11. 연결해제하기
+ 	rs.close();
+ 	pstmt.close();
+ 	conn.close();
+ 	
 
- 	}
+ 	} //// try /////
  	catch(Exception e) {
  		// DB연결 실패시 여기로 들어옴!
- 		e.printStackTrace();
- 		// 추적된 에러메시지 찍기
- 	}
+ 		out.prinln(e.getMessage());
+ 	} ///// catch //////
  	
  	
  	
