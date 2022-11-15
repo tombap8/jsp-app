@@ -55,15 +55,17 @@
  	out.println("DB연결 성공하였습니다!");
  	
  	// 11. 연결해제하기
- 	rs.close();
- 	pstmt.close();
+//  	rs.close();
+//  	pstmt.close();
  	conn.close();
  	
 
  	} //// try /////
  	catch(Exception e) {
  		// DB연결 실패시 여기로 들어옴!
- 		out.prinln(e.getMessage());
+ 		out.println("에러메시지:");
+ 		out.println(e.toString());
+ 		// toString() 문자데이터로 변환하는 메서드
  	} ///// catch //////
  	
  	
