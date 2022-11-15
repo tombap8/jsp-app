@@ -38,6 +38,9 @@
             // POST 방식의 한글처리
             request.setCharacterEncoding("UTF-8");
             
+            // DB레코드결과변수
+            String result = "";
+            
             try{
          		
              	// DB와 연결하려면 해당 DB의 jar파일이 DB폴더의
@@ -103,9 +106,9 @@
              	// 첫번째 라인은 항상 컬럼명이 첫번째 라인이다!
              	// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!!!
              	
-             	// 레코드 결과값 저장변수
-             	String result = "";
-             	
+             	// 일련번호용 변수
+             	int listNum = 1;
+             	             	
              	/// 결과셋에 레코드가 있는 동안 계속 순회함!
              	// rs.getString(컬럼명)
              	// -> 문자형일 경우 getString(), 숫자형은 getInt()
@@ -114,7 +117,10 @@
              		// += 대입연산자로 기존값에 계속 더함!
              		result += 
              				"<tr>"+
-             				"   <td>1</td>"+
+             				"   <td>"+listNum+"</td>"+
+             				// "   <td>"+rs.getInt("idx")+"</td>"+
+             				// 일련번호는 DB의 idx 기본키를 쓰지 않고
+             				// 반복되는 동안 순번을 만들어서 사용한다!
              				"   <td><a href='#'>"+
              				rs.getString("dname")+"</a></td>"+
              				"   <td>"+rs.getString("actors")+"</td>"+
@@ -123,11 +129,14 @@
              				"   <td>"+rs.getString("stime")+"</td>"+
              				"   <td>"+rs.getString("total")+"</td>"+
              				"</tr>";
+             				
+             				// 일련번호증가
+             				listNum++;
              		
              	} //////////// while //////////////
              	
             // 결과화면출력 	
-            out.println(result);
+//    out.println(result);
                             
             
              	
@@ -146,14 +155,12 @@
              	} ///// catch //////
              	
              	
-            
-            
-            
+            /////////////////////////////////////////////////
             %>
             
             <!-- 3.테이블 메인부분 -->
             <tbody>
-            	
+            	<%=result %>
             </tbody>
             
             <!-- 4.테이블 하단부분-->
