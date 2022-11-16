@@ -62,26 +62,76 @@
             				-> jdbc의 종류별 DB에 연결해주는 드라이버를 선별하는 객체
             				-> DB 드라이버문자열은 Class객체의 forName()메서드에
             				등록한 것을 읽어와서 연결객체를 셋팅한다!
+            				
+            				-> 연결전 드라이버 종류 셋업!
             				Class.forName(DB종류별 드라이버문자열);-> 주문을 넣는다!
             				-> MySQL은 "com.mysql.jdbc.Driver" 사용!
             				
+            				드라어버 셋업 후
             				결국 사용할 메서드는?
+            				DriverManager
             				.getConnection(DB연결문자열,DB계정아이디,DB계정비번);
+            				
             				get 가져와!
             				Connection 연결을!
             				->>> 메모리상에 목적한 DB와 연결된 시스템 장치가 셋팅된다!
             				정확히는 DB와 통신망이 열렸다!!!
             		
             		2. 쿼리구성하기 :
-            			-> 우선 유효성이 확인되 쿼리문을 String형으로 할당해 둔다!
+            			-> 우선 유효성이 확인된 쿼리문을 String형(문자형)으로 할당해 둔다!
             			-> java.sql.PreparedStatement 객체가 이것을 가져간다!
             			-> 쿼리를 가져가는 메서드는?
             					Connection객체 하위의 메서드인
             					prepareStatement(쿼리문)으로 호출하여
             					결과값을 PreparedStatement객체에 담는다!!!
             					
+            					->> 이름주의! prepareStatement()            					
             		
             		3. 쿼리실행과 결과값 받기
+            		
+            			-> 쿼리실행 메서드는 
+            			java.sql.PreparedStatement 객체가 가진다!
+            			
+            			Prepared 준비된
+            			Statement 진술,서술 -> 쿼리문
+            			
+            			-> executeQuery() 이미 셋팅된 쿼리를 DB에 실행한다!
+            			execute 실행하라!
+            			Query -> 쿼리를
+            			-> executeQuery() 메서드는 DB의 쿼리결과를 리턴한다!
+            			
+            			이 결과를 누가 담는가?????
+            					
+          			java.sql.ResultSet 객체다!
+          			-> 결과값을 집합의 형태로 마치 배열과 같이 레코드들을 저장함!
+          			-> next() 메서드로 담겨진 레코드를 순회할 수 있다!
+          			-> 결과적으로 하나씩 값을 돌아다니며 찍는다!
+          			-> 하나의 레코드 안에서 각 컬럼명을 DB에 셋팅된 이름으로 가져올 수 있다!
+            		-> 방법: 데이터 형에 따라 get데이터형(컬럼명) 형태로 접근한다!
+            		예) 
+						-> ResultSet 을 변수에 선언과 할당 후
+							ResultSet rs = null;
+						-> String 형이고 컬럼명이 "name"이면
+            				rs.getString("name")
+            			-> int형이고 컬럼명이 "idx"이면
+            				rs.getInt("idx")
+            			-> boolean형이고 컬럼명이 "yorn"이면
+            				rs.getBoolean("yorn")
+            				
+            		4. 연결닫기 : 메모리 해제를 위해 모든 연결을 닫아준다!
+            			-> close() 메서드 사용!
+            			
+            			1) Connection 객체 닫기 
+            			Connection conn;
+            			conn.close();
+            			
+            			2) PreparedStatement 객체 닫기 
+            			PreparedStatement pstmt;
+            			pstmt.close();
+            			
+            			3) ResultSet 객체 닫기 
+            			ResultSet rs;
+            			rs.close();
             	*/
             
              	// 1. DB 연결 문자열값 만들기!
