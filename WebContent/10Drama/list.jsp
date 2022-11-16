@@ -51,10 +51,46 @@
              	// mysql-connector.jar 파일 이것!!!! 확인!
              	// 다이나믹 웹 프로젝트에서는 WEB-INF>lib 폴더에 넣는다!(관리용이)
              	
+            	// 여러줄 주석: 컨쉬+슬래쉬
+            	/*
+            		[ JDBC 프로세스 ]
+            		- JAVA DataBase Connection
+            		
+            		1. DB연결하기 : java.sql.Connection 객체
+            			- 사용메서드: 
+            				DriverManager
+            				-> jdbc의 종류별 DB에 연결해주는 드라이버를 선별하는 객체
+            				-> DB 드라이버문자열은 Class객체의 forName()메서드에
+            				등록한 것을 읽어와서 연결객체를 셋팅한다!
+            				Class.forName(DB종류별 드라이버문자열);-> 주문을 넣는다!
+            				-> MySQL은 "com.mysql.jdbc.Driver" 사용!
+            				
+            				결국 사용할 메서드는?
+            				.getConnection(DB연결문자열,DB계정아이디,DB계정비번);
+            				get 가져와!
+            				Connection 연결을!
+            				->>> 메모리상에 목적한 DB와 연결된 시스템 장치가 셋팅된다!
+            				정확히는 DB와 통신망이 열렸다!!!
+            		
+            		2. 쿼리구성하기 :
+            			-> 우선 유효성이 확인되 쿼리문을 String형으로 할당해 둔다!
+            			-> java.sql.PreparedStatement 객체가 이것을 가져간다!
+            			-> 쿼리를 가져가는 메서드는?
+            					Connection객체 하위의 메서드인
+            					prepareStatement(쿼리문)으로 호출하여
+            					결과값을 PreparedStatement객체에 담는다!!!
+            					
+            		
+            		3. 쿼리실행과 결과값 받기
+            	*/
+            
              	// 1. DB 연결 문자열값 만들기!
              	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
              	// 형식 -> jdbc:db시스템종류://db아이피/db이름
              	// MySQL -> jdbc:mysql://localhost:3306/mydb
+             	
+             	// 참고) 오라클 JDBC 드라이버 로드 문자열
+				// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
              	
              	// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
              	String DB_USER = "root";
