@@ -265,6 +265,12 @@
                 </tr>
             </tfoot>
         </table>
+        
+        <!-- 입력페이지 이동버튼 -->
+        <div class="gubun" onclick="location.href='insert.jsp'" 
+        style="text-align:right; padding:20px 0;">
+        	<button>입력하기</button>
+        </div>
 
         <!-- 구분테이블 박스 -->
         <div class="gubun">
