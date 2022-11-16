@@ -268,8 +268,8 @@
         
         <!-- 입력페이지 이동버튼 -->
         <div class="gubun" onclick="location.href='insert.jsp'" 
-        style="text-align:right; padding:20px 0;">
-        	<button>입력하기</button>
+        style="text-align:right;margin-bottom:50px;">
+        	<button style="font-size:24px;">입력하기</button>
         </div>
 
         <!-- 구분테이블 박스 -->

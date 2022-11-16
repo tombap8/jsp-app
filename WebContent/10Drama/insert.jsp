@@ -10,10 +10,13 @@
         body{
             text-align: center;
         }
+        body, input {
+        	font-size: 26px;
+        }
         
         label{
             display: block;
-            margin-top: 15px;
+            margin: 25px 0;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
