@@ -94,6 +94,14 @@
 <body>
    <h1>드라마 데이터 조회·수정·삭제하기</h1>
    
+   <%
+   		// 파라미터 받기(모든 파라미터는 숫자가 넘어와도 모두 문자형이다!)
+   		// idx값을 받아서 본 페이지에서 활용한다!
+   		String idnum = request.getParameter("idx");
+   		out.println("넘어온 레코드 idx키값:"+idnum);
+   
+   %>
+   
    <form action="process/mod.jsp" method="post" id="dform">
        
        <label for="dname">드라마명</label>

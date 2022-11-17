@@ -170,7 +170,8 @@
              	// lib폴더의 jar파일과 연결!
              	
              	// 9. DB연결하기
-             	conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PWD);
+             	conn = DriverManager
+             	.getConnection(DB_URL,DB_USER,DB_PWD);
              	
              	// 10. 성공메시지띄우기
              	out.println("DB연결 성공하였습니다!");
