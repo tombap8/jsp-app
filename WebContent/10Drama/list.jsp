@@ -226,7 +226,7 @@
                             
             
              	
-             	// 11. 연결해제하기
+             	// 14. 연결해제하기
              	rs.close();
              	pstmt.close();
              	conn.close();
