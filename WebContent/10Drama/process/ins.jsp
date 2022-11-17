@@ -103,9 +103,9 @@
      	// 물음표 순서대로 값을 셋팅해 준다!
      	
      	// 13. 쿼리를 DB에 전송하여 실행한다.
-     	pstmt.executeQuery();
-     	// executeQuery() 쿼리실행 메서드
-     	
+     	pstmt.executeUpdate(); // insert문을 실행하는 메서드는?
+     	// executeQuery() 쿼리실행 메서드 -> select 데이터셋을 가져옴
+		// executeUpdate() 쿼리실행 메서드 -> insert문을 실행함     	
   
      	// 14. 연결해제하기
      	pstmt.close();
