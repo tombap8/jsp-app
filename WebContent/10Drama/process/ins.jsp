@@ -111,6 +111,15 @@
      	pstmt.close();
      	conn.close();
      	// rs.close(); 필요없음!
+     	
+     	// 15. 입력성공시 메시지 띄우기
+     	// JS alert창 띄우고 확인시 list페이지로 돌아가기!
+     	out.println(
+     		"<script>"+		
+     		"alert('저장성공!');"+		
+     		"location.href='../list.jsp';"+		
+     		"</script>"
+     	);
 	       
 		
 	} ////////// try //////////
@@ -120,11 +129,6 @@
  		out.println(e.toString());
  		// toString() 문자데이터로 변환하는 메서드
 	} ///////// catch //////////
-
-
-
-
-
 
 
 %>
