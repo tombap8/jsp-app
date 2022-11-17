@@ -161,7 +161,10 @@
          	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
          	
          	// 12. 쿼리에 추가할 데이터 셋팅하기!
-         	pstmt.setInt(1, idnum);
+         	// -> 파라미터값이 숫자지만 String이므로 형변환 해야함!
+         	// 문자형을 숫자형으로 변환: Integer.parseInt(변수)
+         	pstmt.setInt(1, Integer.parseInt(idnum));
+         	// 형변환시 에러가 발생할 수 있으므로 try,catch문 안에서 변환한다!
          	
          	// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
          	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
