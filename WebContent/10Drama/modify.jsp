@@ -22,7 +22,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     $(function(){ /// jQB //////////////////
-        $("#sbtn").click(function(e){
+    	// 수정하기 버튼
+        $("#mbtn").click(function(e){
             
             // 전송기능막기!
             e.preventDefault();
@@ -59,13 +60,14 @@
         });////// click //////////////
         
         
+        
     });////////// jQB //////////////////////
     </script>
 </head>
 <body>
    <h1>드라마 데이터 조회·수정·삭제하기</h1>
    
-   <form action="process/ins.jsp" method="post" id="dform">
+   <form action="process/mod.jsp" method="post" id="dform">
        
        <label for="dname">드라마명</label>
        <input type="text" name="dname" id="dname" maxlength="100">
@@ -83,10 +85,8 @@
        <br><br>
        <!-- 수정하기 버튼 -->
        <input type="submit" value="수정하기" id="mbtn">
-       <br><br>
        <!-- 삭제하기 버튼 -->
        <input type="submit" value="삭제하기" id="dbtn">
-       <br><br>
        <!-- 리스트가기 버튼 -->
        <input type="submit" value="리스트가기" id="lbtn">
        <!--
