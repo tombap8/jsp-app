@@ -128,11 +128,14 @@
      	
      	// XAMPP 패널에 config버튼 클릭시 my.ini파일에서 "utf"검색
      	// 결과: utf8mb4 가 설정되어 있음 이것을 모두 utf8로 변경함!
+     	// 참고주의) #이 앞에 있는 문장은 주석문이므로 고칠필요가 없다!
      	
-     	// 아래 3가지를 변경함!
+     	// [아래 3가지를 변경함!]
      	// default-character-set=utf8
      	// character-set-server=utf8
      	// collation-server=utf8_general_ci
+     	
+     	// 변경후 반드시 MySQL 서버를 내렸다 올려야 my.ini를 다시 읽는다!
      	
      	// 실제 my.ini 위치는
      	// C:\xampp\mysql\bin\my.ini
