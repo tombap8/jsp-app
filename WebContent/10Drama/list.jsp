@@ -159,7 +159,11 @@
              	ResultSet rs = null;
              	
              	// 7. 쿼리문작성 할당
-             	String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC";
+             	String query = 
+             	"SELECT * FROM `drama_info` ORDER BY `idx` DESC";
+             	// 쿼리문의 ORDER BY 는 내림차순/올림차순 정렬을 지정함
+             	// DESC 는 내림차순, ASC는 올림차순
+             	// DESC (descendent), ASC(ascendent)
              	
              	// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
              	Class.forName("com.mysql.jdbc.Driver");
