@@ -207,7 +207,11 @@
              				// "   <td>"+rs.getInt("idx")+"</td>"+
              				// 일련번호는 DB의 idx 기본키를 쓰지 않고
              				// 반복되는 동안 순번을 만들어서 사용한다!
-             				"   <td><a href='#'>"+
+             				"   <td><a href='modify.jsp?idx="+
+             				rs.getInt("idx")+
+             				"'>"+
+             				// 조회수정 페이지인 modify.jsp로 갈때
+             				// ?idx=유일키값 : Get방식으로 전송함!
              				rs.getString("dname")+"</a></td>"+
              				"   <td>"+rs.getString("actors")+"</td>"+
              				"   <td>"+rs.getString("broad")+"</td>"+
