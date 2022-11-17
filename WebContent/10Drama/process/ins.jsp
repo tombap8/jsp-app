@@ -31,12 +31,13 @@
 		
 		// 넘어온값 찍기!
 		out.println(
+			"<h1>" +
 			"♣ dname : " + dname + "<br>" +
 			"♣ actors : " + actors + "<br>" +
 			"♣ broad : " + broad + "<br>" +
 			"♣ gubun : " + gubun + "<br>" +
 			"♣ stime : " + stime + "<br>" +
-			"♣ total : " + total
+			"♣ total : " + total + "</h1>"
 		);
 		
 		
