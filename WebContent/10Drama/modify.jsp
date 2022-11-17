@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 
+<!-- DB연결 객체 임포트 필수! -->
+<%@page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,43 +177,20 @@
          	// 첫번째 라인은 항상 컬럼명이 첫번째 라인이다!
          	// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!!!
          	
-         	// 일련번호용 변수
-         	int listNum = 1;
-         	             	
+         	         	             	
          	/// 결과셋에 레코드가 있는 동안 계속 순회함!
          	// rs.getString(컬럼명)
          	// -> 문자형일 경우 getString(), 숫자형은 getInt()
          	// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
          	while(rs.next()){
-         		// += 대입연산자로 기존값에 계속 더함!
-         		result += 
-         				"<tr>"+
-         				"   <td>"+listNum+"</td>"+
-         				// "   <td>"+rs.getInt("idx")+"</td>"+
-         				// 일련번호는 DB의 idx 기본키를 쓰지 않고
-         				// 반복되는 동안 순번을 만들어서 사용한다!
-         				"   <td><a href='modify.jsp?idx="+
-         				rs.getInt("idx")+
-         				"'>"+
-         				// 조회수정 페이지인 modify.jsp로 갈때
-         				// ?idx=유일키값 : Get방식으로 전송함!
-         				rs.getString("dname")+"</a></td>"+
-         				"   <td>"+rs.getString("actors")+"</td>"+
-         				"   <td>"+rs.getString("broad")+"</td>"+
-         				"   <td>"+rs.getString("gubun")+"</td>"+
-         				"   <td>"+rs.getString("stime")+"</td>"+
-         				"   <td>"+rs.getString("total")+"</td>"+
-         				"</tr>";
-         				
-         				// 일련번호증가
-         				listNum++;
-         		
+         		dname = rs.getString("dname");
+        		actors = rs.getString("actors");
+        		broad = rs.getString("broad");
+        		gubun = rs.getString("gubun");
+        		stime = rs.getString("stime");
+        		total = rs.getString("total");
          	} //////////// while //////////////
-         	
-        // 결과화면출력 	
-//out.println(result);
-                        
-        
+         	        
          	
          	// 14. 연결해제하기
          	rs.close();
