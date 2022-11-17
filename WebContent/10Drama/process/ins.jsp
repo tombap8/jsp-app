@@ -41,11 +41,73 @@
 		);
 		
 		
+		// 1. DB 연결 문자열값 만들기!
+     	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
+     	// 형식 -> jdbc:db시스템종류://db아이피/db이름
+     	// MySQL -> jdbc:mysql://localhost:3306/mydb
+     	
+     	// 참고) 오라클 JDBC 드라이버 로드 문자열
+		// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
+     	
+     	// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
+     	String DB_USER = "root";
+     	
+     	// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
+     	String DB_PWD = "";
+     	
+     	
+     	// 4. 연결객체 선언
+     	Connection conn = null;
+     	
+     	// 5. 쿼리문 저장객체
+     	PreparedStatement pstmt = null;
+     	
+     	// 6. 결과저장 객체
+     	ResultSet rs = null;
+     	
+     	// 7. 쿼리문작성 할당
+     	String query = "INSERT INTO `drama_info`" +
+     	"(`dname`, `actors`, `broad`, `gubun`, `stime`, `total`)"+ 
+     	" VALUES (?,?,?,?,?,?)";
+     	// 쿼리문작성시 삽입될 데이터 부분을 물음표(?)로 처리하면
+     	// PreparedStatement 객체에서 이부분을 입력하도록 해준다!
+     	
+     	// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
+     	Class.forName("com.mysql.jdbc.Driver");
+     	// lib폴더의 jar파일과 연결!
+     	
+     	// 9. DB연결하기
+     	conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PWD);
+     	
+     	// 10. 성공메시지띄우기
+     	out.println("DB연결 성공하였습니다!");
+     	
+     	// 11. 쿼리문 연결 사용준비하기
+     	// conn연결된 DB객체
+     	pstmt = conn.prepareStatement(query);
+     	// prepareStatement(쿼리문변수)
+     	// - 쿼리문을 DB에 보낼 상태완료!
+     	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
+     	
+     	// 12. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
+     	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
+     	rs = pstmt.executeQuery();
+     	// executeQuery() 쿼리실행 메서드
+     	
+  
+     	// 13. 연결해제하기
+     	rs.close();
+     	pstmt.close();
+     	conn.close();
+     			
 	       
 		
 	} ////////// try //////////
 	catch(Exception e){
-		
+ 		// DB연결 실패시 여기로 들어옴!
+ 		out.println("에러메시지:");
+ 		out.println(e.toString());
+ 		// toString() 문자데이터로 변환하는 메서드
 	} ///////// catch //////////
 
 
