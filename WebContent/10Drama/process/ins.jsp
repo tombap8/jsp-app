@@ -62,8 +62,8 @@
      	// 5. 쿼리문 저장객체
      	PreparedStatement pstmt = null;
      	
-     	// 6. 결과저장 객체
-     	ResultSet rs = null;
+     	// 6. 결과저장 객체 -> 입력에선 불필요!
+     	// ResultSet rs = null;
      	
      	// 7. 쿼리문작성 할당
      	String query = "INSERT INTO `drama_info`" +
@@ -89,17 +89,28 @@
      	// - 쿼리문을 DB에 보낼 상태완료!
      	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
      	
-     	// 12. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
-     	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
-     	rs = pstmt.executeQuery();
+     	// 12. 준비된 쿼리에 물음표부분을 처리하는 순서!
+     	// set데이터형(순번, 값변수)
+     	// 순번은 1부터 시작!
+     	// 데이터형이름은 대문자로 시작
+     	// 예) setString(), setInt(), setDouble(),...
+     	pstmt.setString(1, dname);
+     	pstmt.setString(2, actors);
+     	pstmt.setString(3, broad);
+     	pstmt.setString(4, gubun);
+     	pstmt.setString(5, stime);
+     	pstmt.setString(6, total);
+     	// 물음표 순서대로 값을 셋팅해 준다!
+     	
+     	// 13. 쿼리를 DB에 전송하여 실행한다.
+     	pstmt.executeQuery();
      	// executeQuery() 쿼리실행 메서드
      	
   
-     	// 13. 연결해제하기
-     	rs.close();
+     	// 14. 연결해제하기
      	pstmt.close();
      	conn.close();
-     			
+     	// rs.close(); 필요없음!
 	       
 		
 	} ////////// try //////////
