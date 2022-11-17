@@ -60,7 +60,11 @@
         });////// click //////////////
         
         /// 삭제버튼 클릭시 ///////////
-        $("#dbtn").click(function(){
+        $("#dbtn").click(function(e){
+
+            // 전송기능막기!
+            e.preventDefault();
+            
         	let conf = confirm("정말 삭제하시겠습니까?");
         	// confirm(메시지)
         	// "확인"클릭시 true, "취소"클릭시 false 리턴
@@ -74,7 +78,12 @@
         }); /////// click ///////////////
         
         // 리스트가기 버튼 클릭시 //////
-        $("#lbtn").click(function(){
+        $("#lbtn").click(function(e){
+
+            // 전송기능막기!
+            e.preventDefault();
+            
+            // 리스트 페이지로 이동!
         	location.href = "list.jsp";
         }); //////// click /////////////
         
