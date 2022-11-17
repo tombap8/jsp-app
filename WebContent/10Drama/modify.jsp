@@ -211,17 +211,17 @@
    <form action="process/mod.jsp" method="post" id="dform">
        
        <label for="dname">드라마명</label>
-       <input type="text" name="dname" id="dname" maxlength="100">
+       <input type="text" name="dname" id="dname" maxlength="100" value="<%=dname%>">
        <label for="actors">주연</label>
-       <input type="text" name="actors" id="actors" maxlength="100">
+       <input type="text" name="actors" id="actors" maxlength="100" value="<%=actors%>">
        <label for="broad">제작사</label>
-       <input type="text" name="broad" id="broad" maxlength="50">
+       <input type="text" name="broad" id="broad" maxlength="50" value="<%=broad%>">
        <label for="gubun">구분</label>
-       <input type="text" name="gubun" id="gubun" maxlength="10">
+       <input type="text" name="gubun" id="gubun" maxlength="10" value="<%=gubun%>">
        <label for="stime">방영시간</label>
-       <input type="text" name="stime" id="stime" maxlength="50">
+       <input type="text" name="stime" id="stime" maxlength="50" value="<%=stime%>">
        <label for="total">방영횟수</label>
-       <input type="text" name="total" id="total" maxlength="20">
+       <input type="text" name="total" id="total" maxlength="20" value="<%=total%>">
        
        <br><br>
        <!-- 수정하기 버튼 -->
