@@ -99,6 +99,132 @@
    		// idx값을 받아서 본 페이지에서 활용한다!
    		String idnum = request.getParameter("idx");
    		out.println("넘어온 레코드 idx키값:"+idnum);
+   		
+   		// try문 바깥에 선언하여 아래 html에서 사용할 수 있다!
+   		String dname = "";
+		String actors = "";
+		String broad = "";
+		String gubun = "";
+		String stime = "";
+		String total = "";
+   		
+   		try{
+   		// 1. DB 연결 문자열값 만들기!
+         	String DB_URL = "jdbc:mysql://localhost:3306/mydb";
+         	// 형식 -> jdbc:db시스템종류://db아이피/db이름
+         	// MySQL -> jdbc:mysql://localhost:3306/mydb
+         	
+         	// 참고) 오라클 JDBC 드라이버 로드 문자열
+			// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
+         	
+         	// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
+         	String DB_USER = "root";
+         	
+         	// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
+         	String DB_PWD = "";
+         	
+         	
+         	// 4. 연결객체 선언
+         	Connection conn = null;
+         	
+         	// 5. 쿼리문 저장객체
+         	PreparedStatement pstmt = null;
+         	
+         	// 6. 결과저장 객체
+         	ResultSet rs = null;
+         	
+         	// 7. 쿼리문작성 할당
+         	String query = 
+         	"SELECT * FROM `drama_info` WHERE `idx`=?";
+         	// 해당 유일키 idx값을 넣어서 선택하면 하나의 레코드만 선택된다!
+         	// 데이터가 들어갈 자리만 물음표(?)로 처리하면 끝!
+         	
+         	// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
+         	Class.forName("com.mysql.jdbc.Driver");
+         	// lib폴더의 jar파일과 연결!
+         	
+         	// 9. DB연결하기
+         	conn = DriverManager
+         	.getConnection(DB_URL,DB_USER,DB_PWD);
+         	
+         	// 10. 성공메시지띄우기
+         	out.println("DB연결 성공하였습니다!");
+         	
+         	// 11. 쿼리문 연결 사용준비하기
+         	// conn연결된 DB객체
+         	pstmt = conn.prepareStatement(query);
+         	// prepareStatement(쿼리문변수)
+         	// - 쿼리문을 DB에 보낼 상태완료!
+         	// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
+         	
+         	// 12. 쿼리에 추가할 데이터 셋팅하기!
+         	pstmt.setInt(1, idnum);
+         	
+         	// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
+         	// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
+         	rs = pstmt.executeQuery();
+         	// executeQuery() 쿼리실행 메서드
+         	
+      
+         	// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
+         	// 돌아주는 제어문은? while(조건){실행문}
+         	// 레코드 유무 체크 메서드는? next()
+         	// rs는 ResultSet 객체임!!!
+         	// rs.next() -> 첫라인 다음라인이 있으면 true / 없으면 false!
+         	// 첫번째 라인은 항상 컬럼명이 첫번째 라인이다!
+         	// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!!!
+         	
+         	// 일련번호용 변수
+         	int listNum = 1;
+         	             	
+         	/// 결과셋에 레코드가 있는 동안 계속 순회함!
+         	// rs.getString(컬럼명)
+         	// -> 문자형일 경우 getString(), 숫자형은 getInt()
+         	// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
+         	while(rs.next()){
+         		// += 대입연산자로 기존값에 계속 더함!
+         		result += 
+         				"<tr>"+
+         				"   <td>"+listNum+"</td>"+
+         				// "   <td>"+rs.getInt("idx")+"</td>"+
+         				// 일련번호는 DB의 idx 기본키를 쓰지 않고
+         				// 반복되는 동안 순번을 만들어서 사용한다!
+         				"   <td><a href='modify.jsp?idx="+
+         				rs.getInt("idx")+
+         				"'>"+
+         				// 조회수정 페이지인 modify.jsp로 갈때
+         				// ?idx=유일키값 : Get방식으로 전송함!
+         				rs.getString("dname")+"</a></td>"+
+         				"   <td>"+rs.getString("actors")+"</td>"+
+         				"   <td>"+rs.getString("broad")+"</td>"+
+         				"   <td>"+rs.getString("gubun")+"</td>"+
+         				"   <td>"+rs.getString("stime")+"</td>"+
+         				"   <td>"+rs.getString("total")+"</td>"+
+         				"</tr>";
+         				
+         				// 일련번호증가
+         				listNum++;
+         		
+         	} //////////// while //////////////
+         	
+        // 결과화면출력 	
+//out.println(result);
+                        
+        
+         	
+         	// 14. 연결해제하기
+         	rs.close();
+         	pstmt.close();
+         	conn.close();
+         	
+   		} //// try /////
+     	catch(Exception e) {
+     		// DB연결 실패시 여기로 들어옴!
+     		out.println("에러메시지:");
+     		out.println(e.toString());
+     		// toString() 문자데이터로 변환하는 메서드
+     	} ///// catch //////
+     	
    
    %>
    
