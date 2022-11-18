@@ -13,6 +13,10 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	try{
+		// 수정할 레코드의 유일키인 idx값을 GET방식으로 전달받는다!
+		// JSP에서는 GET방식이든 POST방식이든 하나의 메서드로 관리함
+		// requset.getParameter(이름)
+		String idnum = request.getParameter("idx");
 		
 		// 파라미터 정보 가져오기
 		// 전송한 페이지인 insert.jsp의 form태그 안의 input요소들의
@@ -32,6 +36,7 @@
 		// 넘어온값 찍기!
 		out.println(
 			"<h1>" +
+			"♣ idx : " + idnum + "<br>" +
 			"♣ dname : " + dname + "<br>" +
 			"♣ actors : " + actors + "<br>" +
 			"♣ broad : " + broad + "<br>" +
@@ -66,9 +71,7 @@
    	// ResultSet rs = null;
    	
    	// 7. 쿼리문작성 할당
-   	String query = "INSERT INTO `drama_info`" +
-   	"(`dname`, `actors`, `broad`, `gubun`, `stime`, `total`)"+ 
-   	" VALUES (?,?,?,?,?,?)";
+   	String query = "UPDATE `drama_info` SET `dname`=?, `actors`=?, `broad`=?, `gubun`=?, `stime`=?, `total`=? WHERE `idx` = ?";
    	// 쿼리문작성시 삽입될 데이터 부분을 물음표(?)로 처리하면
    	// PreparedStatement 객체에서 이부분을 입력하도록 해준다!
    	
@@ -100,12 +103,15 @@
    	pstmt.setString(4, gubun);
    	pstmt.setString(5, stime);
    	pstmt.setString(6, total);
+   	pstmt.setInt(7, Integer.parseInt(idnum));
    	// 물음표 순서대로 값을 셋팅해 준다!
    	
    	// 13. 쿼리를 DB에 전송하여 실행한다.
-   	pstmt.executeUpdate(); // insert문을 실행하는 메서드는?
+   	pstmt.executeUpdate(); // update문을 실행하는 메서드는?
    	// executeQuery() 쿼리실행 메서드 -> select 데이터셋을 가져옴
-		// executeUpdate() 쿼리실행 메서드 -> insert문을 실행함     	
+	// executeUpdate() 쿼리실행 메서드 -> update문을 실행함 
+	// -> insert 나 update 모두 DB가 변경되는 것이므로
+	// executeUpdate() 메서드가 모두 처리한다!
 
    	// 14. 연결해제하기
    	pstmt.close();
@@ -116,7 +122,7 @@
    	// JS alert창 띄우고 확인시 list페이지로 돌아가기!
    	out.println(
    		"<script>"+		
-   		"alert('저장성공!');"+		
+   		"alert('업데이트 성공!');"+		
    		"location.href='../list.jsp';"+		
    		"</script>"
    	);
@@ -148,10 +154,6 @@
 		out.println(e.toString());
 		// toString() 문자데이터로 변환하는 메서드
 	} ///////// catch //////////
-
-
-
-
 
 
 %>
