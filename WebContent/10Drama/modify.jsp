@@ -211,40 +211,39 @@
    
    %>
    
-   <form action="process/mod.jsp" method="post" id="dform">
-       
-       <label for="dname">드라마명</label>
-       <input type="text" name="dname" id="dname" maxlength="100" value="<%=dname%>">
-       <label for="actors">주연</label>
-       <input type="text" name="actors" id="actors" maxlength="100" value="<%=actors%>">
-       <label for="broad">제작사</label>
-       <input type="text" name="broad" id="broad" maxlength="50" value="<%=broad%>">
-       <label for="gubun">구분</label>
-       <input type="text" name="gubun" id="gubun" maxlength="10" value="<%=gubun%>">
-       <label for="stime">방영시간</label>
-       <input type="text" name="stime" id="stime" maxlength="50" value="<%=stime%>">
-       <label for="total">방영횟수</label>
-       <input type="text" name="total" id="total" maxlength="20" value="<%=total%>">
-       
-       <br><br>
-       <!-- 수정하기 버튼 -->
-       <input type="submit" value="수정하기" id="mbtn">
-       <!-- 삭제하기 버튼 -->
-       <input type="submit" value="삭제하기" id="dbtn">
-       <!-- 리스트가기 버튼 -->
-       <input type="submit" value="리스트가기" id="lbtn">
-       <!--
+   <!-- 수정처리 페이지인 mod.jsp에 idx값을 전달한다! -->
+	<form action="process/mod.jsp?idx=<%=idnum%>" method="post" id="dform">
+
+		<label for="dname">드라마명</label> <input type="text" name="dname"
+			id="dname" maxlength="100" value="<%=dname%>"> <label
+			for="actors">주연</label> <input type="text" name="actors" id="actors"
+			maxlength="100" value="<%=actors%>"> <label for="broad">제작사</label>
+		<input type="text" name="broad" id="broad" maxlength="50"
+			value="<%=broad%>"> <label for="gubun">구분</label> <input
+			type="text" name="gubun" id="gubun" maxlength="10" value="<%=gubun%>">
+		<label for="stime">방영시간</label> <input type="text" name="stime"
+			id="stime" maxlength="50" value="<%=stime%>"> <label
+			for="total">방영횟수</label> <input type="text" name="total" id="total"
+			maxlength="20" value="<%=total%>"> <br>
+		<br>
+		<!-- 수정하기 버튼 -->
+		<input type="submit" value="수정하기" id="mbtn">
+		<!-- 삭제하기 버튼 -->
+		<input type="submit" value="삭제하기" id="dbtn">
+		<!-- 리스트가기 버튼 -->
+		<input type="submit" value="리스트가기" id="lbtn">
+		<!--
            form요소 내부의 submit버튼을 클릭하면
            form요소에 셋팅된 action속성의 페이지로
            전송된다!
        -->
-   </form>
-   
-   
-   
-   
-   
-   
-    
+	</form>
+
+
+
+
+
+
+
 </body>
 </html>
