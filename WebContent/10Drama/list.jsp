@@ -13,11 +13,11 @@
 	<!-- 한국 최신 드라마 리스트 -->
 	<table class="tbl" id="drama">
 		<!-- 
-                테이블 기본 사이간극은
-                border="1" 속성을 넣고 확인해 본다!
-                없애려면 CSS에서
-                border-collapse:collapse 설정함!
-             -->
+           테이블 기본 사이간극은
+           border="1" 속성을 넣고 확인해 본다!
+           없애려면 CSS에서
+           border-collapse:collapse 설정함!
+        -->
 		<!-- 1.테이블제목 -->
 		<caption>한국 최신 드라마 리스트</caption>
 		<!-- 2.테이블 머릿부분 -->
@@ -82,11 +82,11 @@
 			-> 우선 유효성이 확인된 쿼리문을 String형(문자형)으로 할당해 둔다!
 			-> java.sql.PreparedStatement 객체가 이것을 가져간다!
 			-> 쿼리를 가져가는 메서드는?
-					Connection객체 하위의 메서드인
-					prepareStatement(쿼리문)으로 호출하여
-					결과값을 PreparedStatement객체에 담는다!!!
-					
-					->> 이름주의! prepareStatement()            					
+			Connection객체 하위의 메서드인
+			prepareStatement(쿼리문)으로 호출하여
+			결과값을 PreparedStatement객체에 담는다!!!
+			
+			->> 이름주의! prepareStatement()            					
 				
 				3. 쿼리실행과 결과값 받기
 				
@@ -102,7 +102,7 @@
 			-> executeQuery() 메서드는 DB의 쿼리결과를 리턴한다!
 			
 			이 결과를 누가 담는가?????
-					
+			
 				java.sql.ResultSet 객체다!
 				-> 결과값을 집합의 형태로 마치 배열과 같이 레코드들을 저장함!
 				-> next() 메서드로 담겨진 레코드를 순회할 수 있다!
