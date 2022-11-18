@@ -52,7 +52,7 @@
 		// 4.리스트 그룹수 : 전체개수 ÷ 페이지당개수
 		int listGroup = 0;
 		// 5.남은 레코드수 : 리스트 그룹에서 남은 레코드수
-		int ectRecord = 0;
+		int etcRecord = 0;
 		// 6.페이징링크 코드 저장변수
 		String pgCode = "";
 		
@@ -282,7 +282,7 @@
 				3)전체 레코드수 : totalCnt
 				4)리스트 그룹수 : listGroup
 							(전체개수 ÷ 페이지당개수) 
-				5)남은 레코드수 : ectRecord
+				5)남은 레코드수 : etcRecord
 				6)페이징링크 코드 저장변수 pgCode
 				
 			*********************************/
@@ -305,11 +305,17 @@
 			// 15-2. 리스트 그룹수 : 전체개수 ÷ 페이지당개수
 			listGroup = totalCnt / onePageCnt;
 			
+			// 15-3. 남은 레코드수 : 전체개수 % 페이지당개수
+			// 나머지 구할땐 %연산자
+			etcRecord = totalCnt % onePageCnt;
+			
+			
 			// 화면에 찍어보기
 			out.println("<h1>");
 			out.println("# 전체개수:"+totalCnt+"개<br>");
 			out.println("# 페이지당개수:"+onePageCnt+"개<br>");
 			out.println("# 리스트 그룹수:"+listGroup+"개<br>");
+			out.println("# 남은 레코드수:"+etcRecord+"개<br>");
 			out.println("</h1>");
 
 			// 16. 연결해제하기
