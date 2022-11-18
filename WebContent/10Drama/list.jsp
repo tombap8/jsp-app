@@ -41,6 +41,13 @@
 
 		// DB레코드결과변수
 		String result = "";
+		
+		// ***** 페이징 변수 ****** 
+		// 시작 레코드번호 : LIMIT의 시작값
+		int startNum = 0; 
+		// 페이지당 레코드개수 : LIMIT의 개수
+		int onePageCnt = 3;
+		
 
 		try {
 
@@ -157,9 +164,26 @@
 
 			// 6. 결과저장 객체
 			ResultSet rs = null;
+			
+			/***************************************** 
+				[ 페이징 기능 구현하기 ]
+				1. 페이징 사용이유 : 많은 데이터를 부분적으로 보이기
+				-> 최신데이터보기, 가독성, 페이지 및 쿼리의 거대함 해결
+
+				2. 원리: 한 페이지당 특정 레코드수를 정하여 나누어서
+				마치 페이지를 넘기는것 처럼 데이터를 모아서 본다.
+				
+				3. 페이징 쿼리:
+					SELECT * FROM 테이블명 limit 시작번호,개수
+					-> 단, 시작번호는 0부터!
+					쿼리문 작성시 물음표(?)로 시작번호와 개수를 변수처리함
+					SELECT * FROM 테이블명 limit ?,?
+				4. 페이지 쿼리의 변수처리 : PreparedStatement 에서함!
+				
+			*******************************************/
 
 			// 7. 쿼리문작성 할당
-			String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC";
+			String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC LIMIT ?,?";
 			// 쿼리문의 ORDER BY 는 내림차순/올림차순 정렬을 지정함
 			// DESC 는 내림차순, ASC는 올림차순
 			// DESC (descendent), ASC(ascendent)
@@ -180,8 +204,16 @@
 			// prepareStatement(쿼리문변수)
 			// - 쿼리문을 DB에 보낼 상태완료!
 			// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
+			
+			/****************************************
+				12. 페이지 변수 처리하기
+			*****************************************/
+			// LIMIT 쿼리의 시작번호셋팅
+			pstmt.setInt(1, startNum);
+			// LIMIT 쿼리의 개수셋팅
+			pstmt.setInt(2, onePageCnt);
 
-			// 12. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
+			// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
 			// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
 			rs = pstmt.executeQuery();
 			// executeQuery() 쿼리실행 메서드
