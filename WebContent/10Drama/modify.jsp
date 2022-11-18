@@ -77,8 +77,9 @@ label {
 					// 분기하기(true일경우)
 					if (conf) {
 						// 삭제처리 페이지로 보내기!
-						location.href = "process/del.jsp?idx="
-								+ $(this).attr("data-idx");
+						location.href = 
+							"process/del.jsp?idx="
+							+ $(this).attr("data-idx");
 						// 클릭된버튼의 data-idx 속성값을 뒤에 붙여서 보낸다!
 					} ////// if //////////
 
