@@ -43,10 +43,18 @@
 		String result = "";
 		
 		// ***** 페이징 변수 ****** 
-		// 시작 레코드번호 : LIMIT의 시작값
+		// 1.시작 레코드번호 : LIMIT의 시작값
 		int startNum = 0; 
-		// 페이지당 레코드개수 : LIMIT의 개수
+		// 2.페이지당 레코드개수 : LIMIT의 개수
 		int onePageCnt = 3;
+		// 3.전체 레코드수
+		int totalCnt = 0;
+		// 4.리스트 그룹수 : 전체개수 ÷ 페이지당개수
+		int listGroup = 0;
+		// 5.남은 레코드수 : 리스트 그룹에서 남은 레코드수
+		int ectRecord = 0;
+		// 6.페이징링크 코드 저장변수
+		String pgCode = "";
 		
 
 		try {
@@ -179,6 +187,17 @@
 					쿼리문 작성시 물음표(?)로 시작번호와 개수를 변수처리함
 					SELECT * FROM 테이블명 limit ?,?
 				4. 페이지 쿼리의 변수처리 : PreparedStatement 에서함!
+					시작번호와 개수를 변수로 만들어서 페이징 컨트롤함
+				5. 현재 페이지 정보 필요에 따라
+					URL의 키값 쌍을 생성한다!
+					예) url?키=값
+					   url?pgnum=3
+					 =>>> 어디에 생성하나?
+					리스트 하단의 페이지 이동번호 a링크에 생성한다!
+				6. 전체페이지수는 어떻게 구하나?
+				  게시물전체개수 ÷ 한페이지당개수(onPageCnt)
+				  -> 게시물이 넘칠 경우를 위해 나머지연산자로 
+				  나머지가 있으면 다음 페이지까지 표시함!
 				
 			*******************************************/
 
@@ -206,7 +225,7 @@
 			// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
 			
 			/****************************************
-				12. 페이지 변수 처리하기
+				12. 페이징 변수 처리하기
 			*****************************************/
 			// LIMIT 쿼리의 시작번호셋팅
 			pstmt.setInt(1, startNum);
@@ -218,7 +237,7 @@
 			rs = pstmt.executeQuery();
 			// executeQuery() 쿼리실행 메서드
 
-			// 13. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
+			// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
 			// 돌아주는 제어문은? while(조건){실행문}
 			// 레코드 유무 체크 메서드는? next()
 			// rs는 ResultSet 객체임!!!
@@ -253,8 +272,47 @@
 
 			// 결과화면출력 	
 			//    out.println(result);
+			
+			/********************************* 
+				15. 페이징 링크 생성하기
+				______________________________
+				
+				1)시작 레코드번호 : startNum
+				2)페이지당 레코드개수 : onePageCnt
+				3)전체 레코드수 : totalCnt
+				4)리스트 그룹수 : listGroup
+							(전체개수 ÷ 페이지당개수) 
+				5)남은 레코드수 : ectRecord
+				6)페이징링크 코드 저장변수 pgCode
+				
+			*********************************/
+			// 15-1. 전체 레코드 수 구하기
+			// 레코드수 구하기 쿼리
+			String cntQuery = 
+			"SELECT COUNT(*) FROM `drama_info`";
+			// 쿼리를 PreparedStatement에 넣기
+			PreparedStatement pstmt2 = 
+			conn.prepareStatement(cntQuery);
+			// 쿼리실행! -> 개수정보를 리턴받아 ResultSet에 담는다!
+			ResultSet rs2 = pstmt2.executeQuery();
+			
+			// 개수결과가 있으면 가져오기
+			if(rs2.next()){
+				totalCnt = rs2.getInt(1);
+				// getInt(1)은 정수형 결과를 가져옴!
+			} ////// if ///////////
+			
+			// 15-2. 리스트 그룹수 : 전체개수 ÷ 페이지당개수
+			listGroup = totalCnt / onePageCnt;
+			
+			// 화면에 찍어보기
+			out.println("<h1>");
+			out.println("# 전체개수:"+totalCnt+"개<br>");
+			out.println("# 페이지당개수:"+onePageCnt+"개<br>");
+			out.println("# 리스트 그룹수:"+listGroup+"개<br>");
+			out.println("</h1>");
 
-			// 14. 연결해제하기
+			// 16. 연결해제하기
 			rs.close();
 			pstmt.close();
 			conn.close();
