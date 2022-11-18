@@ -76,6 +76,9 @@
         	// 분기하기(true일경우)
         	if(conf){
         		// 삭제처리 페이지로 보내기!
+        		location.href = "process/del.jsp?idx="+
+        				$(this).attr("data-idx");
+        		// 클릭된버튼의 data-idx 속성값을 뒤에 붙여서 보낸다!
         	} ////// if //////////
         	
         }); /////// click ///////////////
@@ -228,8 +231,8 @@
 		<br>
 		<!-- 수정하기 버튼 -->
 		<input type="submit" value="수정하기" id="mbtn">
-		<!-- 삭제하기 버튼 -->
-		<input type="submit" value="삭제하기" id="dbtn">
+		<!-- 삭제하기 버튼 : 클릭시 데이터속성 data-idx의 해당순번을 읽어간다 -->
+		<input type="submit" value="삭제하기" id="dbtn" data-idx="<%=idnum%>">
 		<!-- 리스트가기 버튼 -->
 		<input type="submit" value="리스트가기" id="lbtn">
 		<!--
