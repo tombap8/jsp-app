@@ -224,6 +224,32 @@
 			// - 쿼리문을 DB에 보낼 상태완료!
 			// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
 			
+			/**************************************** 
+			[ 페이징 변수처리전 페이지번호로 시작번호 변경하기 ]
+			*****************************************/
+			// 페이지번호 가져오기
+			String pgNum = request.getParameter("pgnum");
+			out.println("파라미터:"+pgNum+"<br>");
+			
+			// 파라미터 형변환 변수
+			int pageSeq = 1; // 기본값 1(파라미터가 없으면 1들어감!)
+			
+			// 파라미터가 있으면 시작값 처리하기
+			if(pgNum != null){ // null이 아니면!
+				// 파라미터 형변환!
+				try{
+					pageSeq = Integer.parseInt(pgNum);
+				}
+				catch(NumberFormatException ex){
+					out.println("파라미터가 숫자가 아닙니다!<br>");
+					// 기본값으로 돌려보낸다!
+					pageSeq = 1;
+				}
+				// 시작번호 계산하기 : 페이지당 레코드수 * (페이지번호-1)
+				startNum = onePageCnt * (pageSeq -1);
+				
+			} //////////// if //////////////
+			
 			/****************************************
 				12. 페이징 변수 처리하기
 			*****************************************/
@@ -309,6 +335,28 @@
 			// 나머지 구할땐 %연산자
 			etcRecord = totalCnt % onePageCnt;
 			
+			// 한계수 체크: 나머지가 있고 없고에 따라 1개차이남
+			int limit = etcRecord==0 ? listGroup : listGroup + 1;
+			// 나머지가 있으면 1페이지 더 추가!
+			
+			// 15-4. 페이징 링크 코드 만들기
+			for(int i=0; i < limit; i++){
+				// pgCode변수에 모두 넣는다
+				pgCode += 
+				"<a href='list.jsp?pgnum="+
+				(i+1)+
+				"'>"+
+				(i+1)+
+				"</a>";
+				
+				// 사이바 찍기 
+				// (한계값-1,즉 마지막번호 전까지만 사이바출력)
+				if(i < limit-1){
+					pgCode += " | ";					
+				}
+				
+			} ////////// for //////////////
+			
 			
 			// 화면에 찍어보기
 			out.println("<h1>");
@@ -342,18 +390,7 @@
 		<!-- 4.테이블 하단부분-->
 		<tfoot>
 			<tr>
-				<td colspan="7">◀ 1 | <a href="#">2</a> | <a href="#">3</a> | <a
-					href="#">4</a> | <a href="#">5</a> | <a href="#">6</a> | <a
-					href="#">7</a> | <a href="#">8</a> | <a href="#">9</a> | <a
-					href="#">10</a> ▶
-				</td>
-				<!-- 
-                        colspan 속성은 기본적으로 td를 합칠때 사용함
-                        상단의 td(th)가 7개 이고 이것을 합치려면
-                        7개를 하나로 통합하는 값을 설정해 준다!
-                        여기서 col은 column 컬럼(기둥)의 뜻
-                        span은 "범위"라는 의미
-                     -->
+				<td colspan="7">◀ <%=pgCode%> ▶</td>
 			</tr>
 		</tfoot>
 	</table>
