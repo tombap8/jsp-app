@@ -92,7 +92,8 @@ label {
 			e.preventDefault();
 
 			// 리스트 페이지로 이동!
-			location.href = "list.jsp";
+			location.href = "list.jsp?pgnum="+
+					$(this).attr("data-pgnum");
 		}); //////// click /////////////
 
 	});////////// jQB //////////////////////
@@ -106,6 +107,8 @@ label {
 	// idx값을 받아서 본 페이지에서 활용한다!
 	String idnum = request.getParameter("idx");
 	out.println("넘어온 레코드 idx키값:" + idnum);
+	String pgnum = request.getParameter("pgnum");
+	out.println("넘어온 페이지번호값:" + pgnum);
 
 	// try문 바깥에 선언하여 아래 html에서 사용할 수 있다!
 	String dname = "";
@@ -226,7 +229,7 @@ label {
 		<!-- 삭제하기 버튼 : 클릭시 데이터속성 data-idx의 해당순번을 읽어간다 -->
 		<input type="submit" value="삭제하기" id="dbtn" data-idx="<%=idnum%>">
 		<!-- 리스트가기 버튼 -->
-		<input type="submit" value="리스트가기" id="lbtn">
+		<input type="submit" value="리스트가기" id="lbtn" data-pgnum="<%=pgnum%>">
 		<!--
            form요소 내부의 submit버튼을 클릭하면
            form요소에 셋팅된 action속성의 페이지로
