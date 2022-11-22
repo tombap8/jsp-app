@@ -17,6 +17,8 @@
 		// JSP에서는 GET방식이든 POST방식이든 하나의 메서드로 관리함
 		// requset.getParameter(이름)
 		String idnum = request.getParameter("idx");
+		// 페이지번호 받기 : 수정후 리스트페이지 갈때 사용함!
+		String pgnum = request.getParameter("pgnum");
 
 		// 파라미터 정보 가져오기
 		// 전송한 페이지인 insert.jsp의 form태그 안의 input요소들의
@@ -111,7 +113,8 @@
 
 		// 15. 입력성공시 메시지 띄우기
 		// JS alert창 띄우고 확인시 list페이지로 돌아가기!
-		out.println("<script>" + "alert('업데이트 성공!');" + "location.href='../list.jsp';" + "</script>");
+		out.println("<script>" + "alert('업데이트 성공!');" + 
+		"location.href='../list.jsp?pgnum="+pgnum+"';" + "</script>");
 
 		// [ 입력시 한글 깨짐 문제발생 해결 ]
 		// -> 입력성공후 한글이 물음표(?)로 입력된 경우 원인은?
