@@ -42,10 +42,10 @@
 
 		// DB레코드결과변수
 		String result = "";
-		
+
 		// ***** 페이징 변수 ****** 
 		// 1.시작 레코드번호 : LIMIT의 시작값
-		int startNum = 0; 
+		int startNum = 0;
 		// 2.페이지당 레코드개수 : LIMIT의 개수
 		int onePageCnt = 3;
 		// 3.전체 레코드수
@@ -56,7 +56,6 @@
 		int etcRecord = 0;
 		// 6.페이징링크 코드 저장변수
 		String pgCode = "";
-		
 
 		try {
 
@@ -173,28 +172,28 @@
 
 			// 6. 결과저장 객체
 			ResultSet rs = null;
-			
+
 			/***************************************** 
 				[ 페이징 기능 구현하기 ]
 				1. 페이징 사용이유 : 많은 데이터를 부분적으로 보이기
 				-> 최신데이터보기, 가독성, 페이지 및 쿼리의 거대함 해결
-
+			
 				2. 원리: 한 페이지당 특정 레코드수를 정하여 나누어서
 				마치 페이지를 넘기는것 처럼 데이터를 모아서 본다.
 				
 				3. 페이징 쿼리:
-					SELECT * FROM 테이블명 limit 시작번호,개수
-					-> 단, 시작번호는 0부터!
-					쿼리문 작성시 물음표(?)로 시작번호와 개수를 변수처리함
-					SELECT * FROM 테이블명 limit ?,?
+			SELECT * FROM 테이블명 limit 시작번호,개수
+			-> 단, 시작번호는 0부터!
+			쿼리문 작성시 물음표(?)로 시작번호와 개수를 변수처리함
+			SELECT * FROM 테이블명 limit ?,?
 				4. 페이지 쿼리의 변수처리 : PreparedStatement 에서함!
-					시작번호와 개수를 변수로 만들어서 페이징 컨트롤함
+			시작번호와 개수를 변수로 만들어서 페이징 컨트롤함
 				5. 현재 페이지 정보 필요에 따라
-					URL의 키값 쌍을 생성한다!
-					예) url?키=값
-					   url?pgnum=3
-					 =>>> 어디에 생성하나?
-					리스트 하단의 페이지 이동번호 a링크에 생성한다!
+			URL의 키값 쌍을 생성한다!
+			예) url?키=값
+			   url?pgnum=3
+			 =>>> 어디에 생성하나?
+			리스트 하단의 페이지 이동번호 a링크에 생성한다!
 				6. 전체페이지수는 어떻게 구하나?
 				  게시물전체개수 ÷ 한페이지당개수(onPageCnt)
 				  -> 게시물이 넘칠 경우를 위해 나머지연산자로 
@@ -224,33 +223,32 @@
 			// prepareStatement(쿼리문변수)
 			// - 쿼리문을 DB에 보낼 상태완료!
 			// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
-			
+
 			/**************************************** 
 			[ 페이징 변수처리전 페이지번호로 시작번호 변경하기 ]
 			*****************************************/
 			// 페이지번호 가져오기
 			String pgNum = request.getParameter("pgnum");
-			out.println("파라미터:"+pgNum+"<br>");
-			
-			// 파라미터 형변환 변수
+			out.println("파라미터:" + pgNum + "<br>");
+
+			// 파라미터 형변환 변수(현재 페이지번호)
 			int pageSeq = 1; // 기본값 1(파라미터가 없으면 1들어감!)
-			
+
 			// 파라미터가 있으면 시작값 처리하기
-			if(pgNum != null){ // null이 아니면!
+			if (pgNum != null) { // null이 아니면!
 				// 파라미터 형변환!
-				try{
+				try {
 					pageSeq = Integer.parseInt(pgNum);
-				}
-				catch(NumberFormatException ex){
+				} catch (NumberFormatException ex) {
 					out.println("파라미터가 숫자가 아닙니다!<br>");
 					// 기본값으로 돌려보낸다!
 					pageSeq = 1;
 				}
 				// 시작번호 계산하기 : 페이지당 레코드수 * (페이지번호-1)
-				startNum = onePageCnt * (pageSeq -1);
-				
+				startNum = onePageCnt * (pageSeq - 1);
+
 			} //////////// if //////////////
-			
+
 			/****************************************
 				12. 페이징 변수 처리하기
 			*****************************************/
@@ -275,11 +273,11 @@
 			// 일련번호용 변수
 			// 페이지에 따른 시작일련번호 구하기
 			int listNum = 1;
-			if(pageSeq != 1) 
-				listNum = (pageSeq-1) * onePageCnt + 1;
-				// (2-1) * 3 + 1 = 4
-				// (3-1) * 3 + 1 = 7
-				// (4-1) * 3 + 1 = 10
+			if (pageSeq != 1)
+				listNum = (pageSeq - 1) * onePageCnt + 1;
+			// (2-1) * 3 + 1 = 4
+			// (3-1) * 3 + 1 = 7
+			// (4-1) * 3 + 1 = 10
 
 			/// 결과셋에 레코드가 있는 동안 계속 순회함!
 			// rs.getString(컬럼명)
@@ -291,10 +289,14 @@
 				// "   <td>"+rs.getInt("idx")+"</td>"+
 				// 일련번호는 DB의 idx 기본키를 쓰지 않고
 				// 반복되는 동안 순번을 만들어서 사용한다!
-				"   <td><a href='modify.jsp?idx=" + rs.getInt("idx") + "'>" +
+				"   <td><a href='modify.jsp?idx="+ 
+				rs.getInt("idx") + 
+				"&pgnum="+pageSeq+"'>" +
 				// 조회수정 페이지인 modify.jsp로 갈때
 				// ?idx=유일키값 : Get방식으로 전송함!
-				rs.getString("dname") + "</a></td>" + "   <td>" + rs.getString("actors") + "</td>" + "   <td>"
+				// pgnum=현재페이지번호 : 추가전송!
+				rs.getString("dname") + "</a></td>" + 
+				"   <td>" + rs.getString("actors") + "</td>" + "   <td>"
 				+ rs.getString("broad") + "</td>" + "   <td>" + rs.getString("gubun") + "</td>" + "   <td>"
 				+ rs.getString("stime") + "</td>" + "   <td>" + rs.getString("total") + "</td>" + "</tr>";
 
@@ -305,7 +307,7 @@
 
 			// 결과화면출력 	
 			//    out.println(result);
-			
+
 			/********************************* 
 				15. 페이징 링크 생성하기
 				______________________________
@@ -314,71 +316,62 @@
 				2)페이지당 레코드개수 : onePageCnt
 				3)전체 레코드수 : totalCnt
 				4)리스트 그룹수 : listGroup
-							(전체개수 ÷ 페이지당개수) 
+					(전체개수 ÷ 페이지당개수) 
 				5)남은 레코드수 : etcRecord
 				6)페이징링크 코드 저장변수 pgCode
 				
 			*********************************/
 			// 15-1. 전체 레코드 수 구하기
 			// 레코드수 구하기 쿼리
-			String cntQuery = 
-			"SELECT COUNT(*) FROM `drama_info`";
+			String cntQuery = "SELECT COUNT(*) FROM `drama_info`";
 			// 쿼리를 PreparedStatement에 넣기
-			PreparedStatement pstmt2 = 
-			conn.prepareStatement(cntQuery);
+			PreparedStatement pstmt2 = conn.prepareStatement(cntQuery);
 			// 쿼리실행! -> 개수정보를 리턴받아 ResultSet에 담는다!
 			ResultSet rs2 = pstmt2.executeQuery();
-			
+
 			// 개수결과가 있으면 가져오기
-			if(rs2.next()){
+			if (rs2.next()) {
 				totalCnt = rs2.getInt(1);
 				// getInt(1)은 정수형 결과를 가져옴!
 			} ////// if ///////////
-			
+
 			// 15-2. 리스트 그룹수 : 전체개수 ÷ 페이지당개수
 			listGroup = totalCnt / onePageCnt;
-			
+
 			// 15-3. 남은 레코드수 : 전체개수 % 페이지당개수
 			// 나머지 구할땐 %연산자
 			etcRecord = totalCnt % onePageCnt;
-			
+
 			// 한계수 체크: 나머지가 있고 없고에 따라 1개차이남
-			int limit = etcRecord==0 ? listGroup : listGroup + 1;
+			int limit = etcRecord == 0 ? listGroup : listGroup + 1;
 			// 나머지가 있으면 1페이지 더 추가!
-			
+
 			// 15-4. 페이징 링크 코드 만들기
-			for(int i=0; i < limit; i++){
+			for (int i = 0; i < limit; i++) {
 				// 만약 현재 페이지와 같은 번호는 a링크 걸지말고
 				// b태그로 두꺼운 글자 표시만 해주자!
-				if(i == pageSeq-1){
-					pgCode += "<b>"+(i+1)+"</b>";
+				if (i == pageSeq - 1) { // i는 0부터니까 1뺌
+			pgCode += "<b>" + (i + 1) + "</b>";
 				} /// if ////
-				else{
-					// pgCode변수에 모두 넣는다
-					pgCode += 
-						"<a href='list.jsp?pgnum="+
-						(i+1)+
-						"'>"+
-						(i+1)+
-						"</a>";
+				else {
+			// pgCode변수에 모두 넣는다
+			pgCode += "<a href='list.jsp?pgnum=" + (i + 1) + "'>" + (i + 1) + "</a>";
 				} /// else //////
-				
-				
+
 				// 사이바 찍기 
 				// (한계값-1,즉 마지막번호 전까지만 사이바출력)
-				if(i < limit-1){
-					pgCode += " | ";					
+				if (i < limit - 1) {
+			pgCode += " | ";
 				}
-				
+
 			} ////////// for //////////////
-			
-			
+
 			// 화면에 찍어보기
 			out.println("<h1>");
-			out.println("# 전체개수:"+totalCnt+"개<br>");
-			out.println("# 페이지당개수:"+onePageCnt+"개<br>");
-			out.println("# 리스트 그룹수:"+listGroup+"개<br>");
-			out.println("# 남은 레코드수:"+etcRecord+"개<br>");
+			out.println("# 전체개수:" + totalCnt + "개<br>");
+			out.println("# 페이지당개수:" + onePageCnt + "개<br>");
+			out.println("# 리스트 그룹수:" + listGroup + "개<br>");
+			out.println("# 남은 레코드수:" + etcRecord + "개<br>");
 			out.println("</h1>");
 
 			// 16. 연결해제하기
@@ -405,7 +398,8 @@
 		<!-- 4.테이블 하단부분-->
 		<tfoot>
 			<tr>
-				<td colspan="7">◀ <%=pgCode%> ▶</td>
+				<td colspan="7">◀ <%=pgCode%> ▶
+				</td>
 			</tr>
 		</tfoot>
 	</table>
