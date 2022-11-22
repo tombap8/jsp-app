@@ -211,7 +211,7 @@ label {
 	%>
 
 	<!-- 수정처리 페이지인 mod.jsp에 idx값을 전달한다! -->
-	<form action="process/mod.jsp?idx=<%=idnum%>" method="post" id="dform">
+	<form action="process/mod.jsp?idx=<%=idnum%>&pgnum=<%=pgnum %>" method="post" id="dform">
 
 		<label for="dname">드라마명</label> <input type="text" name="dname"
 			id="dname" maxlength="100" value="<%=dname%>"> <label
