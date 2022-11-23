@@ -1,30 +1,16 @@
 package common;
 
 public class Paging {
-	// ***** 페이징 변수 ****** 
-	// 1.시작 레코드번호 : LIMIT의 시작값
-	public int startNum = 0;
-	// 2.페이지당 레코드개수 : LIMIT의 개수
-	public int onePageCnt = 3;
-	// 3.전체 레코드수
-	int totalCnt = 0;
-	// 4.리스트 그룹수 : 전체개수 ÷ 페이지당개수
-	int listGroup = 0;
-	// 5.남은 레코드수 : 리스트 그룹에서 남은 레코드수
-	int etcRecord = 0;
-	// 6.페이징링크 코드 저장변수
-	String pgCode = "";
-	// 파라미터 형변환 변수(현재 페이지번호)
-	public int pageSeq = 1; // 기본값 1(파라미터가 없으면 1들어감!)
-	// 한계수 체크: 나머지가 있고 없고에 따라 1개차이남
-	int limit; 
+	
+	// 페이징 DTO 생성
+	PagingDTO pgdto = new PagingDTO();
+	// DB연결 클래스 생성하기
+	JDBConnector jdbc = new JDBConnector();
 
 	///////////////////////
 	// 생성자 메서드 /////////
 	// 역할: 인스턴스 생성시 바로 실행하므로 기본 변수값을 모두 셋팅한다!
 	public Paging() {
-		// DB연결 클래스 생성하기
-		JDBConnector jdbc = new JDBConnector();
 
 		/********************************* 
 		15. 페이징 링크 생성하기
@@ -50,19 +36,23 @@ public class Paging {
 
 			// 개수결과가 있으면 가져오기
 			if (jdbc.rs.next()) {
-				totalCnt = jdbc.rs.getInt(1);
+				pgdto.setTotalCnt(jdbc.rs.getInt(1));
 				// getInt(1)은 정수형 결과를 가져옴!
 			} ////// if ///////////
 
 			// 15-2. 리스트 그룹수 : 전체개수 ÷ 페이지당개수
-			listGroup = totalCnt / onePageCnt;
+			pgdto.setListGroup(
+					pgdto.getTotalCnt() / pgdto.getOnePageCnt());
 
 			// 15-3. 남은 레코드수 : 전체개수 % 페이지당개수
 			// 나머지 구할땐 %연산자
-			etcRecord = totalCnt % onePageCnt;
+			pgdto.setEtcRecord(
+					pgdto.getTotalCnt() % pgdto.getOnePageCnt());
 
 			// 한계수 체크: 나머지가 있고 없고에 따라 1개차이남
-			limit = etcRecord == 0 ? listGroup : listGroup + 1;
+			pgdto.setLimit(
+			pgdto.getEtcRecord() == 0 ? 
+			pgdto.getListGroup() : pgdto.getListGroup() + 1);
 			// 나머지가 있으면 1페이지 더 추가!
 
 
@@ -71,12 +61,11 @@ public class Paging {
 			e.printStackTrace();
 		} /// catch ////
 
-
 		// 콘솔에 찍어보기
-		System.out.println("# 전체개수:" + totalCnt + "개");
-		System.out.println("# 페이지당개수:" + onePageCnt + "개");
-		System.out.println("# 리스트 그룹수:" + listGroup + "개");
-		System.out.println("# 남은 레코드수:" + etcRecord + "개");
+		System.out.println("# 전체개수:" + pgdto.getTotalCnt() + "개");
+		System.out.println("# 페이지당개수:" + pgdto.getOnePageCnt() + "개");
+		System.out.println("# 리스트 그룹수:" + pgdto.getListGroup() + "개");
+		System.out.println("# 남은 레코드수:" + pgdto.getEtcRecord() + "개");
 
 	} /////// 생성자 메서드 ///////
 
@@ -101,19 +90,19 @@ public class Paging {
 		if (pgNum != null) { // null이 아니면!
 			// 파라미터 형변환!
 			try {
-				pageSeq = Integer.parseInt(pgNum);
+				pgdto.setPageSeq(Integer.parseInt(pgNum));
 			} catch (NumberFormatException ex) {
 				System.out.println("파라미터가 숫자가 아닙니다!<br>");
 				// 기본값으로 돌려보낸다!
-				pageSeq = 1;
+				pgdto.setPageSeq(1);
 			}
 			// 시작번호 계산하기 : 페이지당 레코드수 * (페이지번호-1)
-			startNum = onePageCnt * (pageSeq - 1);
+			pgdto.setStartNum(pgdto.getOnePageCnt() * (pgdto.getPageSeq() - 1));
 
 		} //////////// if //////////////
 
 		// 시작번호 리턴하기
-		return startNum;
+		return pgdto.getStartNum();
 
 	} ///////////// changeStartNum 메서드 //////////
 
