@@ -69,7 +69,12 @@
 			[ 페이징 변수처리전 페이지번호로 시작번호 변경하기 ]
 			*****************************************/
 			// startNum을 변경하는 것이므로 setStartNum()으로 변경함!
+			// DB쿼리에서 limit 시작번호다!
 			pgdto.setStartNum(pg.changeStartNum(pgNum));
+			
+			// pageSeq 변수 초기 셋팅 필수!(파라미터값으로 셋팅!)
+			// 각 페이지별 시작번호를 맞춰준다!
+			pgdto.setPageSeq(Integer.parseInt(pgNum));
 
 			/****************************************
 				12. 페이징 변수 처리하기
