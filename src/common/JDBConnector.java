@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 // DB관련 객체 import하기
 
 public class JDBConnector {
-	// 4. 연결객체 선언
+	// 1. 연결객체 선언
 	public Connection conn;	
-	// 5. 쿼리문 저장객체
+	// 2. 쿼리문 저장객체
 	public PreparedStatement pstmt;	
-	// 6. 결과저장 객체
+	// 3. 결과저장 객체
 	public ResultSet rs;
 	
 	// 생성자 메서드

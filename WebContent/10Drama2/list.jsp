@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-- 공통패키지 -->
 <%@page import="common.JDBConnector"%>
+<%@page import="common.Paging"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,33 +39,40 @@
 
 		// POST 방식의 한글처리
 		request.setCharacterEncoding("UTF-8");
+		
+		// 페이지번호 파라미터 받기(만약없으면 null이므로 "1"할당!)
+		String pgNum = request.getParameter("pgnum");
+		if(pgNum==null) pgNum="1";
 
 		// DB레코드결과변수
 		String result = "";
 
-		
+		// DB연결 클래스 생성
+		JDBConnector jdbc = new JDBConnector();
+
+		// 페이지 클래스 생성
+		Paging pg = new Paging();
 
 		try {
-			
-			// DB연결 클래스 생성
-			JDBConnector jdbc = new JDBConnector();
-			
-			
+
 			// 7. 쿼리문작성 할당
 			String query = "SELECT * FROM `drama_info` ORDER BY `idx` DESC LIMIT ?,?";
-			
+
 			// 11. 쿼리문 연결 사용준비하기
 			jdbc.pstmt = jdbc.conn.prepareStatement(query);
-
 			
+			/**************************************** 
+			[ 페이징 변수처리전 페이지번호로 시작번호 변경하기 ]
+			*****************************************/
+			pg.changeStartNum(pgNum);
 
 			/****************************************
 				12. 페이징 변수 처리하기
 			*****************************************/
 			// LIMIT 쿼리의 시작번호셋팅
-			jdbc.pstmt.setInt(1, startNum);
+			jdbc.pstmt.setInt(1, pg.startNum);
 			// LIMIT 쿼리의 개수셋팅
-			jdbc.pstmt.setInt(2, onePageCnt);
+			jdbc.pstmt.setInt(2, pg.onePageCnt);
 
 			// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
 			// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
@@ -82,8 +90,8 @@
 			// 일련번호용 변수
 			// 페이지에 따른 시작일련번호 구하기
 			int listNum = 1;
-			if (pageSeq != 1)
-				listNum = (pageSeq - 1) * onePageCnt + 1;
+			if (pg.pageSeq != 1)
+				listNum = (pg.pageSeq - 1) * pg.onePageCnt + 1;
 			// (2-1) * 3 + 1 = 4
 			// (3-1) * 3 + 1 = 7
 			// (4-1) * 3 + 1 = 10
@@ -98,18 +106,13 @@
 				// "   <td>"+rs.getInt("idx")+"</td>"+
 				// 일련번호는 DB의 idx 기본키를 쓰지 않고
 				// 반복되는 동안 순번을 만들어서 사용한다!
-				"   <td><a href='modify.jsp?idx="+ 
-						jdbc.rs.getInt("idx") + 
-				"&pgnum="+pageSeq+"'>" +
+				"   <td><a href='modify.jsp?idx=" + jdbc.rs.getInt("idx") + "&pgnum=" + pg.pageSeq + "'>" +
 				// 조회수정 페이지인 modify.jsp로 갈때
 				// ?idx=유일키값 : Get방식으로 전송함!
 				// pgnum=현재페이지번호 : 추가전송!
-				jdbc.rs.getString("dname") + "</a></td>" + 
-				"   <td>" + jdbc.rs.getString("actors") + "</td>" + "   <td>"
-				+ jdbc.rs.getString("broad") + "</td>" + "   <td>" + 
-				jdbc.rs.getString("gubun") + "</td>" + "   <td>"
-				+ jdbc.rs.getString("stime") + "</td>" + "   <td>" + 
-				jdbc.rs.getString("total") + "</td>" + "</tr>";
+				jdbc.rs.getString("dname") + "</a></td>" + "   <td>" + jdbc.rs.getString("actors") + "</td>" + "   <td>"
+				+ jdbc.rs.getString("broad") + "</td>" + "   <td>" + jdbc.rs.getString("gubun") + "</td>" + "   <td>"
+				+ jdbc.rs.getString("stime") + "</td>" + "   <td>" + jdbc.rs.getString("total") + "</td>" + "</tr>";
 
 				// 일련번호증가
 				listNum++;
@@ -118,8 +121,6 @@
 
 			// 결과화면출력 	
 			//    out.println(result);
-
-			
 
 			// 16. 연결해제하기
 			jdbc.close();
@@ -143,7 +144,7 @@
 		<!-- 4.테이블 하단부분-->
 		<tfoot>
 			<tr>
-				<td colspan="7">◀ <%=pgCode%> ▶
+				<td colspan="7">◀ <%=pg.makePaging()%> ▶
 				</td>
 			</tr>
 		</tfoot>

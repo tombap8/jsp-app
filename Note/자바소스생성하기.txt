@@ -14,3 +14,12 @@
 오른쪽 버튼 새로고침해준다!)
 
 4. common 패키지에서 오른쪽 버튼 New... class선택
+
+5. 자바 소스 원본 파일이 생성되어 코딩후 저장하면 자동컴파일 되어
+build/classes 폴더에 class파일이 생성됨.
+
+참고)
+java파일이 자동 빌드되어 class 파일이 생성되는 곳은
+Root 밑에 .classpath 파일에 셋팅되어 있다!
+아래 코드로 셋팅됨!
+<classpathentry kind="output" path="build/classes"/>
