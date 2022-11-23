@@ -100,8 +100,13 @@
 			// 일련번호용 변수
 			// 페이지에 따른 시작일련번호 구하기
 			int listNum = 1;
-			if (pgdto.getPageSeq() != 1)
-				listNum = (pgdto.getPageSeq() - 1) * pgdto.getPageSeq() + 1;
+			if (pgdto.getPageSeq() != 1){
+				listNum = 
+				(pgdto.getPageSeq() - 1) * pgdto.getOnePageCnt() + 1;
+				// (현재 페이지번호 - 1) * 한페이지당개수 + 1
+			} ////// if ////////
+				
+			// 예시 계산 :
 			// (2-1) * 3 + 1 = 4
 			// (3-1) * 3 + 1 = 7
 			// (4-1) * 3 + 1 = 10
