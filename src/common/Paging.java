@@ -106,13 +106,20 @@ public class Paging {
 
 	} ///////////// changeStartNum 메서드 //////////
 
+	// 사용자 정의 메서드 2
+	/////////////////////////////
 	//// 페이징 소스 리턴 메서드 /////
+	/////////////////////////////
+	// 역할: 페이징 정보에 따라 실제 링크코드를 만들어서 본 html페이지로 리턴
 	public String makePaging() {
+		// 페이징링크 코드 저장변수
+		String pgCode="";
+		
 		// 15-4. 페이징 링크 코드 만들기
-		for (int i = 0; i < limit; i++) {
+		for (int i = 0; i < pgdto.getLimit(); i++) {
 			// 만약 현재 페이지와 같은 번호는 a링크 걸지말고
 			// b태그로 두꺼운 글자 표시만 해주자!
-			if (i == pageSeq - 1) { // i는 0부터니까 1뺌
+			if (i == pgdto.getPageSeq() - 1) { // i는 0부터니까 1뺌
 				pgCode += "<b>" + (i + 1) + "</b>";
 			} /// if ////
 			else {
@@ -122,7 +129,7 @@ public class Paging {
 
 			// 사이바 찍기 
 			// (한계값-1,즉 마지막번호 전까지만 사이바출력)
-			if (i < limit - 1) {
+			if (i < pgdto.getLimit() - 1) {
 				pgCode += " | ";
 			}
 

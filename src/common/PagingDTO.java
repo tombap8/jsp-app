@@ -14,12 +14,10 @@ public class PagingDTO {
 	// 4.리스트 그룹수 : 전체개수 ÷ 페이지당개수
 	private int listGroup;
 	// 5.남은 레코드수 : 리스트 그룹에서 남은 레코드수
-	private int etcRecord;
-	// 6.페이징링크 코드 저장변수
-	private String pgCode;
-	// 7.파라미터 형변환 변수(현재 페이지번호)
+	private int etcRecord;	
+	// 6.파라미터 형변환 변수(현재 페이지번호)
 	private int pageSeq; // 기본값 1(파라미터가 없으면 1들어감!)
-	// 8.한계수 체크: 나머지가 있고 없고에 따라 1개차이남
+	// 7.한계수 체크: 나머지가 있고 없고에 따라 1개차이남
 	private int limit;
 
 	// 겟터와 셋터 생성 /////////////////
@@ -29,6 +27,11 @@ public class PagingDTO {
 	}
 	public void setStartNum(int startNum) {
 		this.startNum = startNum;
+	}
+	// 2.페이지당 레코드개수 : LIMIT의 개수
+	// -> final 이므로 셋터가 없다!
+	public int getOnePageCnt() {
+		return onePageCnt;
 	}
 	// 3.전체 레코드수
 	public int getTotalCnt() {
@@ -51,31 +54,19 @@ public class PagingDTO {
 	public void setEtcRecord(int etcRecord) {
 		this.etcRecord = etcRecord;
 	}
-	// 6.페이징링크 코드 저장변수
-	public String getPgCode() {
-		return pgCode;
-	}
-	public void setPgCode(String pgCode) {
-		this.pgCode = pgCode;
-	}
-	// 7.파라미터 형변환 변수(현재 페이지번호)
+	// 6.파라미터 형변환 변수(현재 페이지번호)
 	public int getPageSeq() {
 		return pageSeq;
 	}
 	public void setPageSeq(int pageSeq) {
 		this.pageSeq = pageSeq;
 	}
-	// 8.한계수 체크: 나머지가 있고 없고에 따라 1개차이남
+	// 7.한계수 체크: 나머지가 있고 없고에 따라 1개차이남
 	public int getLimit() {
 		return limit;
 	}
 	public void setLimit(int limit) {
 		this.limit = limit;
-	}
-	// 2.페이지당 레코드개수 : LIMIT의 개수
-	// -> final 이므로 셋터가 없다!
-	public int getOnePageCnt() {
-		return onePageCnt;
 	}
 
 }
