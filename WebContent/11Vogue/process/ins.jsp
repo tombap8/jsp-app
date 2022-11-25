@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="common.JDBConnector" %>
+<%@ page import="common.SHA256" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,8 @@
 	
 	// DB연결 객체 생성
 	JDBConnector jdbc = new JDBConnector();
+	// 암호화 객체 생성
+	SHA256 sha = new SHA256();
 	
 	try{
 		
@@ -22,6 +25,10 @@
 		String mid = request.getParameter("mid");
 		// 2.비번
 		String mpw = request.getParameter("mpw");
+		
+		// 비밀번호 암호화!
+		String shampw = sha.encSha256(mpw);
+		
 		// 3.이름
 		String mnm = request.getParameter("mnm");
 		// 4.성별
@@ -38,7 +45,7 @@
 			"<h1>" +
 			"♣ mid : " + mid + "<br>" +
 			"♣ mpw : " + mpw + "<br>" +
-			
+			"♣ sha256 : " + shampw + "<br>" +
 			"♣ mnm : " + mnm + "<br>" +
 			"♣ gen : " + gen + "<br>" +
 			"♣ email1 : " + email1 + "<br>" +
@@ -70,7 +77,7 @@
      	// 데이터형이름은 대문자로 시작
      	// 예) setString(), setInt(), setDouble(),...
      	jdbc.pstmt.setString(1, mid);
-     	jdbc.pstmt.setString(2, mpw);
+     	jdbc.pstmt.setString(2, shampw);
      	jdbc.pstmt.setString(3, mnm);
      	jdbc.pstmt.setString(4, gen);
      	jdbc.pstmt.setString(5, email1);
