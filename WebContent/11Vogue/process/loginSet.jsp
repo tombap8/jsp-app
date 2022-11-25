@@ -10,10 +10,21 @@
 </head>
 <body>
 <%
+		
+		//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
+		request.setCharacterEncoding("UTF-8");
+		
+		// DB연결 객체 생성
+		JDBConnector jdbc = new JDBConnector();
+		
+		// 암호화 객체 생성
+		SHA256 sha = new SHA256();
+		
 		//1.아이디(입력항목)
 		String mid = request.getParameter("mid");
 		// 2.비번(입력항목)
 		String mpw = request.getParameter("mpw");
+		
 		// 3.비번(db)
 		String dbmpw = "";
 		// 4.이름(db)
@@ -22,87 +33,68 @@
 		String auth = "";
 
 	try {
-		// 1. DB 연결 문자열값 만들기!
-		String DB_URL = "jdbc:mysql://localhost:3306/mydb";
-		// 형식 -> jdbc:db시스템종류://db아이피/db이름
-		// MySQL -> jdbc:mysql://localhost:3306/mydb
-
-		// 참고) 오라클 JDBC 드라이버 로드 문자열
-		// Oracle -> jdbc:oracle:thin:@localhost:1521:xe
-
-		// 2. DB 아이디계정 : root는 슈퍼어드민 기본계정임
-		String DB_USER = "root";
-
-		// 3. DB 비밀번호 : root는 최초에 비밀번호가 없음
-		String DB_PWD = "";
-
-		// 4. 연결객체 선언
-		Connection conn = null;
-
-		// 5. 쿼리문 저장객체
-		PreparedStatement pstmt = null;
-
-		// 6. 결과저장 객체
-		ResultSet rs = null;
 
 		// 7. 쿼리문작성 할당
-		String query = "SELECT * FROM `drama_info` WHERE `idx`=?";
+		String query = 
+		"SELECT `mid`,`mpw`,`name`,`auth` FROM `member` WHERE `mid` = ?";
 		// 해당 유일키 idx값을 넣어서 선택하면 하나의 레코드만 선택된다!
 		// 데이터가 들어갈 자리만 물음표(?)로 처리하면 끝!
-
-		// 8. DB 종류 클래스 등록하기 -> 해당 연결 드라이브 로딩!
-		Class.forName("com.mysql.jdbc.Driver");
-		// lib폴더의 jar파일과 연결!
-
-		// 9. DB연결하기
-		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PWD);
-
-		// 10. 성공메시지띄우기
-		out.println("DB연결 성공하였습니다!");
+		
 
 		// 11. 쿼리문 연결 사용준비하기
 		// conn연결된 DB객체
-		pstmt = conn.prepareStatement(query);
+		jdbc.pstmt = jdbc.conn.prepareStatement(query);
 		// prepareStatement(쿼리문변수)
 		// - 쿼리문을 DB에 보낼 상태완료!
 		// - 중간에 쿼리문에 넣을 값을 추가할 수 있음!
 
 		// 12. 쿼리에 추가할 데이터 셋팅하기!
-		// -> 파라미터값이 숫자지만 String이므로 형변환 해야함!
-		// 문자형을 숫자형으로 변환: Integer.parseInt(변수)
-		pstmt.setInt(1, Integer.parseInt(idnum));
-		// 형변환시 에러가 발생할 수 있으므로 try,catch문 안에서 변환한다!
+		jdbc.pstmt.setString(1, mid);
+		// 아이디로 쿼리조건값을 설정함!
 
 		// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
 		// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
-		rs = pstmt.executeQuery();
+		jdbc.rs = jdbc.pstmt.executeQuery();
 		// executeQuery() 쿼리실행 메서드
 
 		// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
-		// 돌아주는 제어문은? while(조건){실행문}
-		// 레코드 유무 체크 메서드는? next()
-		// rs는 ResultSet 객체임!!!
-		// rs.next() -> 첫라인 다음라인이 있으면 true / 없으면 false!
-		// 첫번째 라인은 항상 컬럼명이 첫번째 라인이다!
-		// 따라서 다음라인이 있다는 것은 결과 레코드가 있다는 말!!!
-
-		/// 결과셋에 레코드가 있는 동안 계속 순회함!
-		// rs.getString(컬럼명)
-		// -> 문자형일 경우 getString(), 숫자형은 getInt()
-		// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
-		while (rs.next()) {
-			dname = rs.getString("dname");
-			actors = rs.getString("actors");
-			broad = rs.getString("broad");
-			gubun = rs.getString("gubun");
-			stime = rs.getString("stime");
-			total = rs.getString("total");
-		} //////////// while //////////////
+		if (jdbc.rs.next()) {
+			// 1. 비밀번호
+			dbmpw = jdbc.rs.getString("mpw");
+			// 2. 이름
+			name = jdbc.rs.getString("name");
+			// 3. 권한
+			auth = jdbc.rs.getString("auth");
+			// ********************************
+			// 비밀번호 비교를 위해 입력한 비밀번호를 암호화
+			String shampw = sha.encSha256(mpw);
+			// *********************************
+			out.println(
+				"<h1>" +
+				"♣ 입력아이디 : " + mid + "<br>" +
+				"♣ 디비비번 : " + dbmpw + "<br>" +
+				"♣ 변환비번 : " + shampw + "<br>" +
+				"♣ 입력비번 : " + mpw + "<br>" +
+				"♣ 디비이름 : " + name + "<br>" +
+				"♣ 디비권한 : " + auth + "</h1>"
+			);
+			
+			// 입력된 비밀번호 암호화후 DB비밀번호와 비교한다!
+			if(dbmpw.equals(shampw)){
+				out.print("<h1>비밀번호가 일치합니다!</h1>");
+			} //// if /////
+			else{
+				out.print("<h1>비밀번호가 일치하지 않습니다!</h1>");
+			} ////// else //////
+			
+			
+		} //////////// if //////////////
+		else{
+			out.print("<h1>아이디가 존재하지 않습니다!</h1>");
+		} /////////// else ///////////////
 
 		// 14. 연결해제하기
-		rs.close();
-		pstmt.close();
-		conn.close();
+		jdbc.close();
 
 	} //// try /////
 	catch (Exception e) {
