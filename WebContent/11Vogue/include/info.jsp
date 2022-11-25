@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <div id="info" class="bgc">
 	<footer class="info ibx">
 		<!-- 3-1. 하단로고 -->
