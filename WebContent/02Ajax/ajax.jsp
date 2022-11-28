@@ -40,18 +40,18 @@
                 // $.post(URL,data,callback);
                 // $.post(전송할페이지,전송할데이터,처리후함수);
                 $.post(
-               		// 1. 전송할 페이지
-               		"process/ajaxtest.jsp",
-               		// 2. 전송할 데이터(객체형식으로 보냄)
-               		// {속성:값} -> 값은 입력된 value읽어옴!
-               		{name:$("#name").val()},
-               		// 3. 처리후함수(콜백함수)
-               		function(data){ 
-               			// data - 처리후 처리페이지로 부터 리턴된값
-               			console.log(data);
-               			// 화면에 결과찍기
-               			$("#res").text(data);
-               		});
+            		// 1. 전송할 페이지
+            		"process/ajaxtest.jsp",
+            		// 2. 전송할 데이터(객체형식으로 보냄)
+            		// {속성:값} -> 값은 입력된 value읽어옴!
+            		{name:$("#name").val()},
+            		// 3. 처리후함수(콜백함수)
+            		function(data){ 
+            			// data - 처리후 처리페이지로 부터 리턴된값
+            			console.log(data);
+            			// 화면에 결과찍기
+            			$("#res").text(data);
+            		});
 
             }); /////// click ////////
 
