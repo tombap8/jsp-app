@@ -9,7 +9,6 @@
 		out.print("ok");
 	} /// try /////////
 	catch(Exception e){
-		out.print("로그아웃에 문제가 생겼습니다"+
-		e.toString());
+		out.print(e.toString());
 	} //// catch ////////
 %>
