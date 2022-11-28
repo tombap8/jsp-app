@@ -30,6 +30,7 @@
           // 대상: .sns a:nth-child(5)
           $(".sns a").eq(4)
           .attr("title","로그아웃")
+          .css("color","hotpink")
 
           // 3. 로그아웃 클릭시 로그아웃하기
           // 주의: linksys.js에 "로그아웃"예외처리필요!
