@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ page import="common.JDBConnector" %>
 <%@ page import="common.SHA256" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인 처리 페이지</title>
-</head>
-<body>
 <%
+	// ### 로그인 처리 페이지 ###
 		
 		//POST 방식의 한글처리 : 이것 안쓰면 한글깨짐!!!
 		request.setCharacterEncoding("UTF-8");
@@ -70,19 +64,19 @@
 			// 비밀번호 비교를 위해 입력한 비밀번호를 암호화
 			String shampw = sha.encSha256(mpw);
 			// *********************************
-			out.println(
-				"<h1>" +
-				"♣ 입력아이디 : " + mid + "<br>" +
-				"♣ 디비비번 : " + dbmpw + "<br>" +
-				"♣ 변환비번 : " + shampw + "<br>" +
-				"♣ 입력비번 : " + mpw + "<br>" +
-				"♣ 디비이름 : " + name + "<br>" +
-				"♣ 디비권한 : " + auth + "</h1>"
-			);
+// 			out.println(
+// 				"<h1>" +
+// 				"♣ 입력아이디 : " + mid + "<br>" +
+// 				"♣ 디비비번 : " + dbmpw + "<br>" +
+// 				"♣ 변환비번 : " + shampw + "<br>" +
+// 				"♣ 입력비번 : " + mpw + "<br>" +
+// 				"♣ 디비이름 : " + name + "<br>" +
+// 				"♣ 디비권한 : " + auth + "</h1>"
+// 			);
 			
 			// 입력된 비밀번호 암호화후 DB비밀번호와 비교한다!
 			if(dbmpw.equals(shampw)){ // 로그인 성공!!
-				out.print("<h1>비밀번호가 일치합니다!</h1>");
+				out.print("ok");
 				/*
 					[ 로그인 성공시 필수 셋팅할 것은? ]
 					-> 세션변수셋팅하기!
@@ -113,8 +107,10 @@
 				
 				// 세션변수에 사용자 이름을 생성한다!(세션시작!)
 				session.setAttribute("name", name);
-				// 페이지 강제이동하기(첫페이지)
-				response.sendRedirect("../index.jsp");
+				// 사용자 권한도 세션 변수에 생성한다!
+				session.setAttribute("auth", auth);
+				// 페이지 강제이동하기(첫페이지) - Ajax 처리시 불필요
+				// response.sendRedirect("../index.jsp");
 				
 				// 세션,리퀘스트,리스폰스 내장객체는
 				// 바로 생성없이 사용할 수 있는 static객체로 설정됨
@@ -124,13 +120,13 @@
 			
 			} //// if /////
 			else{ // 비밀번호 불일치로 인한 로그인 실패!!
-				out.print("<h1>비밀번호가 일치하지 않습니다!</h1>");
+				out.print("again");
 			} ////// else //////
 			
 			
 		} //////////// if //////////////
 		else{
-			out.print("<h1>아이디가 존재하지 않습니다!</h1>");
+			out.print("no");
 		} /////////// else ///////////////
 
 		// 14. 연결해제하기
@@ -143,6 +139,4 @@
 		out.println(e.toString());
 		// toString() 문자데이터로 변환하는 메서드
 	} ///// catch //////
-	%>
-</body>
-</html>
+%>
