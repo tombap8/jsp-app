@@ -35,14 +35,8 @@
         <script src="./js/common.js"></script>
     </head>
     <body>
-    	<%
-    		// 세션변수가 셋팅된 경우
-    		if(session.getAttribute("name")!=null){
-    			out.print("<h1>"+session.getAttribute("name")+
-    					"님, 환영합니다!</h1>");
-    			out.print("<button onclick='location.href=\"process/logout.jsp\"'>로그아웃</button>");
-    		} ////////// if ////////////
-    	%>
+    	<!-- 로그인세션처리 인클루드 -->
+        <%@ include file="include/loginSession.jsp" %>
         <!-- 1. 상단영역 -->
         <%@ include file="include/top.jsp" %>
         <!-- 2. 메인영역 -->
