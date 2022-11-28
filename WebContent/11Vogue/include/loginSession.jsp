@@ -108,13 +108,14 @@
       $("#loginMsg").css({
           position: "absolute",
           width: "400px",
-          top: "1%",
+          top: "5%",
           left: "50%",
           transform: "translateX(-50%)",
           fontSize: "14px",
           fontWeight: "bold",
           textAlign: "center",
-          whiteSpace: "nowrap"
+          whiteSpace: "nowrap",
+          zIndex:"-1"
       }); ////// css //////////
 
 
