@@ -390,13 +390,24 @@ $(() => {
                 },
                 // 3.전송후실행함수
                 function (res) { // res 처리페이지의 결과값
+                    res = res.trim();//앞뒤공백제거!
                     console.log("실행결과:",res);
                     // 입력 성공시 //
                     if(res === "ok") {
                         // 1. 메시지 띄우기
                         alert("회원가입을 축하드립니다! 짝짝짝!!!");
                         // 2. 로그인 페이지로 이동하기
-                        location.href = "login.jsp";
+                        location.replace("login.jsp");
+                        // location.replace(이동주소)
+                        // -> 이동후 전페이지 히스토리가 지워진다!
+                        // 따라서 이전 페이지 이동이 안된다! 굿~!
+
+                        // location.href = "login.jsp";
+                        // location.href = 주소
+                        // 이 방식으로 페이지 이동을 하면
+                        // 페이지 히스토리가 남게 된다
+                        // 이전 페이지로 이동이 가능하고
+                        // 회원가입 정보가 노출된다! 오! 노우!!!
 
                     } ///// if ////
                     // 실패시 /////
