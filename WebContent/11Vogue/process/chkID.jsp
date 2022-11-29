@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@ page import="common.JDBConnector" %>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ page import="common.JDBConnector"%>
 <%
 	// ### 아이디 중복검사 처리 페이지 ###
 		
