@@ -161,6 +161,14 @@ $(() => {
                         } ///////// else /////////
                     },
                     // 7. 실패처리
+                    // xhr - XMLRequest 객체
+                    // status - 실패상태코드번호
+                    // error - 에러결과 메시지
+                    error: function(xhr,status,error){
+                        alert("비동기처리 실패:"+error);
+                        // 불통과 업데이트 필수!!!
+                        pass = false;
+                    } ///////// error /////////////
                 })
 
 
