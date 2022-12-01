@@ -23,7 +23,7 @@
 		String dbmpw = "";
 		// 4.이름(db)
 		String name = "";
-		// 5.성별(db)
+		// 5.권한(db)
 		String auth = "";
 
 	try {
@@ -31,7 +31,7 @@
 		// 7. 쿼리문작성 할당
 		String query = 
 		"SELECT `mid`,`mpw`,`name`,`auth` FROM `member` WHERE `mid` = ?";
-		// 해당 유일키 idx값을 넣어서 선택하면 하나의 레코드만 선택된다!
+		// 회원의 아이디값을 넣어서 선택하여 레코드를 가져오는 쿼리를 작성한다.
 		// 데이터가 들어갈 자리만 물음표(?)로 처리하면 끝!
 		
 

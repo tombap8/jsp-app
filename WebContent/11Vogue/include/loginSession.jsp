@@ -128,10 +128,16 @@
 </script>
 <%
 /////////////////////////////////////////////////////////////
-	// 메시지 세션값 읽어오기 - session.getAttribute() 사용
-	String msg = session.getAttribute("name") + "님, 환영합니다!";
-	// 권한 세션값 읽어오기
+	// 권한 세션값 읽어오기 : 먼저 값을 읽고 권한중 "A"또는"S"이면 
+	// 환영메시지에 "관리자"라는 말을 추가해준다!
 	String auth = session.getAttribute("auth").toString();
+
+	// 어드민이면 "관리자" 할당!
+	String admin = " 회원"; // 일반회원은 "회원님...으로출력"
+	if(auth.equals("A") || auth.equals("S")) admin = " 관리자";
+	
+	// 메시지 세션값 읽어오기 - session.getAttribute() 사용
+	String msg = session.getAttribute("name") + admin + "님, 환영합니다!";
 	// 로그인 셋팅 JS함수 호출하기!!!
 	// 위쪽에 출력되는 JS함수를 호출함
 	// loginSet(메시지,권한)
