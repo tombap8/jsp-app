@@ -11,7 +11,7 @@ public class Paging {
 	// 생성자 메서드 /////////
 	///////////////////////
 	// 역할: 인스턴스 생성시 바로 실행하므로 기본 변수값을 모두 셋팅한다!
-	public Paging() {
+	public Paging(String tbName) { // tbName - 페이징대상테이블
 
 		/********************************* 
 		15. 페이징 링크 생성하기
@@ -29,7 +29,7 @@ public class Paging {
 		try {
 			// 15-1. 전체 레코드 수 구하기
 			// 레코드수 구하기 쿼리
-			String cntQuery = "SELECT COUNT(*) FROM `drama_info`";
+			String cntQuery = "SELECT COUNT(*) FROM "+ tbName;
 			// 쿼리를 PreparedStatement에 넣기
 			jdbc.pstmt = jdbc.conn.prepareStatement(cntQuery);
 			// 쿼리실행! -> 개수정보를 리턴받아 ResultSet에 담는다!
