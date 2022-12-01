@@ -92,7 +92,7 @@
 
                 // 추가된 관리자 버튼에 링크셋팅!
                 $(".sns a").eq(5)
-                .click(()=>location.href="admin/index.jsp");
+                .click(()=>location.href="admin/list.jsp");
                 
         } /////////// if /////////////////
 
