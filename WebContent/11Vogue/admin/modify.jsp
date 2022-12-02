@@ -145,10 +145,8 @@
 		} //////////// while //////////////
 
 		// 14. 연결해제하기
-		rs.close();
-		pstmt.close();
-		conn.close();
-
+		jdbc.close();
+		
 	} //// try /////
 	catch (Exception e) {
 		// DB연결 실패시 여기로 들어옴!
@@ -159,16 +157,16 @@
 	%>
       
        <label for="mid">아이디</label>
-       <input type="text" name="mid" id="mid" maxlength="100" value="" disabled>
+       <input type="text" name="mid" id="mid" maxlength="100" value="<%=idnum %>" disabled>
        
        <label for="name">이름</label>
-       <input type="text" name="name" id="name" maxlength="100" value="" disabled>
+       <input type="text" name="name" id="name" maxlength="100" value="<%=name %>" disabled>
        
        <label for="gen">성별</label>
-       <input type="text" name="gen" id="gen" maxlength="50" value="" disabled>
+       <input type="text" name="gen" id="gen" maxlength="50" value="<%=gen %>" disabled>
        
        <label for="email">이메일</label>
-       <input type="text" name="email" id="email" maxlength="10" value="" disabled>
+       <input type="text" name="email" id="email" maxlength="10" value="<%=email1%>@<%=email2%>" disabled>
        
    <form action="process/mod.php" method="post" id="dform">
       <!--form요소로 싸고 있는 input요소의 값만 보낼 수 있다!-->
@@ -179,6 +177,16 @@
            <option value="A">관리자</option>
            <option value="M">일반회원</option>
        </select>
+       
+       <%
+       		// DB에서 가져온 auth권한으로 select박스의 선택을 바꿔준다!
+       		out.print("<script>"+
+       		"$('#auth').val('"+auth+"')"+
+       		".prop('selected',true)"+
+       		"</script>");
+    		 // 제이쿼리 메서드 : prop()
+    		 // 선택select박스.prop("selected",true) -> 선택박스의 선택변경
+       %>
        
        
        <!--히든필드!!! "idx"컬럼값 넣기(POST방식으로 함께보냄)-->
