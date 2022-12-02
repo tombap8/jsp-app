@@ -121,7 +121,7 @@
 
 		// 13. 쿼리를 DB에 전송하여 실행후 결과집합(결과셋)을 가져옴!
 		// ResultSet객체는 DB에서 쿼리결과를 저장하는 객체임!
-		rs = pstmt.executeQuery();
+		jdbc.rs = jdbc.pstmt.executeQuery();
 		// executeQuery() 쿼리실행 메서드
 
 		// 14. 저장된 결과집합의 레코드 수 만큼 돌면서 코드만들기!
