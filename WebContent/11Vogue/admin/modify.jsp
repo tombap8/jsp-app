@@ -145,7 +145,7 @@
        <label for="email">이메일</label>
        <input type="text" name="email" id="email" maxlength="10" value="<%=email1%>@<%=email2%>" disabled>
        
-   <form action="process/mod.jsp" method="post" id="dform">
+   <form action="process/mod.jsp?idx=<%=idnum %>&pgnum=<%=pgnum %>" method="post" id="dform">
       <!--form요소로 싸고 있는 input요소의 값만 보낼 수 있다!-->
       
        <label for="auth">권한</label>
