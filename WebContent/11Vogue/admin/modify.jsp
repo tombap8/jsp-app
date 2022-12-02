@@ -184,7 +184,7 @@
        		"$('#auth').val('"+auth+"')"+
        		".prop('selected',true)"+
        		"</script>");
-    		 // 제이쿼리 메서드 : prop()
+    		 // 제이쿼리 메서드 : prop(속성,true/false)
     		 // 선택select박스.prop("selected",true) -> 선택박스의 선택변경
        %>
        
