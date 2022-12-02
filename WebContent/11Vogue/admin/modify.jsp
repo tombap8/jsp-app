@@ -30,22 +30,6 @@
             // 전송기능막기!
             e.preventDefault();
             
-            // 각 항목이 비었는지 검사하기
-            let res=true;//검사결과
-            // 흰손수건의 법칙! 한번만 false여도 false!
-            
-            $("input[type=text]").each(
-                function(idx,ele){
-                //console.log("순번:"+idx);
-                    
-                // 각 입력양식 값이 빈값여부체크
-                if($(ele).val().trim()==="") 
-                    res = false;
-                                        
-            });////// each /////////
-            
-            console.log("검사결과:"+res);
-            
             /// 검사결과 모든 항목이 통과면 서브밋하기
             if(res){
                 $("#dform").submit();
