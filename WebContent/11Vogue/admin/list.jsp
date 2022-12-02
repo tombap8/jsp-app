@@ -16,15 +16,28 @@
 		// 세션변수가 셋팅되었고 auth 데이터가 "A" 또는 "S"가
 		// 아니면 돌려보내고 맞으면 관리자 환영 메시지를 띄워준다!
 		if(session.getAttribute("auth")!=null){
+			// 세션변수 가져오기!(이름과 권한)
+			String name = session.getAttribute("name").toString();
 			String auth = session.getAttribute("auth").toString();
-			if(auth.equals("A") || auth.equals("S")){
-				out.println("<h2>관리자님 환영합니다!</h2>");
-			}
-			else{
-				out.println("<h2>ㅎㅎㅎ</h2>");
-			}
 			
-		}
+			/// 권한자일 경우 if문 //////
+			if(auth.equals("A") || auth.equals("S")){
+				out.println("<h2>"+ name +" 관리자님 환영합니다!</h2>");
+			} /// 권한자일 경우 if문 //////
+			else{ // 만약 권한이 없으면 메시지와 함께 다시 첫페이지로!
+				out.println("<script>"+
+				"alert('권한이 없으므로 본 페이지를 열람할 수 없습니다.');"+
+				"location.replace('../index.jsp');"+
+				"</script>");
+			} //// 권한없는 경우 else문 ///////
+			
+		} /////// 로그인 사용자 접근 if문 ////////////
+		else{ /// 로그인을 안한 경우
+			out.println("<script>"+
+			"alert('먼저 로그인을 해야합니다!');"+
+			"location.replace('../index.jsp');"+
+			"</script>");
+		} ////////// 로그인을 안한 경우 //////////
 	
 	
 	%>
