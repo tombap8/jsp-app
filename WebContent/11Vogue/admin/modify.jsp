@@ -137,6 +137,7 @@
 		// -> 문자형일 경우 getString(), 숫자형은 getInt()
 		// -> 컬럼명은 DB 테이블에 실제로 생성된 컬럼명이다!
 		while (jdbc.rs.next()) {
+			mid = jdbc.rs.getString("mid");
 			name = jdbc.rs.getString("name");
 			gen = jdbc.rs.getString("gen");
 			email1 = jdbc.rs.getString("email1");
@@ -157,7 +158,7 @@
 	%>
       
        <label for="mid">아이디</label>
-       <input type="text" name="mid" id="mid" maxlength="100" value="<%=idnum %>" disabled>
+       <input type="text" name="mid" id="mid" maxlength="100" value="<%=mid %>" disabled>
        
        <label for="name">이름</label>
        <input type="text" name="name" id="name" maxlength="100" value="<%=name %>" disabled>
