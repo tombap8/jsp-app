@@ -22,7 +22,8 @@
 			
 			/// 권한자일 경우 if문 //////
 			if(auth.equals("A") || auth.equals("S")){
-				out.println("<h2>"+ name +" 관리자님 환영합니다!</h2>");
+				out.println("<h2 style='text-align:center'>"+ 
+				name +" 관리자님 환영합니다!</h2>");
 			} /// 권한자일 경우 if문 //////
 			else{ // 만약 권한이 없으면 메시지와 함께 다시 첫페이지로!
 				out.println("<script>"+
@@ -35,7 +36,7 @@
 		else{ /// 로그인을 안한 경우
 			out.println("<script>"+
 			"alert('먼저 로그인을 해야합니다!');"+
-			"location.replace('../index.jsp');"+
+			"location.replace('../login.jsp');"+
 			"</script>");
 		} ////////// 로그인을 안한 경우 //////////
 	
@@ -100,9 +101,54 @@
         <button onclick="location.href='../index.jsp'" style="float:right;">사이트로 돌아가기</button>
         <br>
         <!--로그아웃버튼-->
-        <button onclick="logout()">로그아웃</button>
+        <button id="lobtn">로그아웃</button>
 
     </div>
+    
+    <!-- 제이쿼리 라이브러리 -->
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+    $(()=>{ ///////// jQB ///////////////
+    	// 3. 로그아웃 클릭시 로그아웃하기
+        // 주의: linksys.js에 "로그아웃"예외처리필요!
+        // 이것을 안해주면 sns중 하나로 분류되어 404새창이 뜸!
+        $("#lobtn").click(function(){
+            // 비동기통신으로 로그아웃 처리 페이지호출!
+            // Ajax - $.post() 로 처리!
+            // $.post(호출페이지, 전달변수셋팅, 콜백함수)
+            $.post(
+              // 1. 호출페이지:현재 admin폴더에서 한단계위로 이동
+                "../process/logout.jsp",
+                // 2. 전달변수셋팅
+                {},
+                // 3. 콜백함수
+                function(res){// res-결과값
+                  res = res.replace(/\s/g,"");
+                  console.log("실행결과:", res);
+                    if(res==="ok"){
+
+                        // 메시지
+                        alert("안전하게 로그아웃 되었습니다!");                          
+
+                        // 첫페이지로 리로드
+                        location.replace("../index.jsp");
+                        
+                    } ////// if ////////////////
+                    else{
+
+                        // 메시지
+                        alert("로그아웃시 문제가 발생하였습니다!"+res);
+
+                    } ///// else ///////////////
+                  
+
+                } /// 콜백함수 ///////
+
+            );///////// Ajax - post /////////
+        }) ///// click /////////////////////
+    	
+    }); ///////////// jQB ///////////////
+    </script>
 
 
 
