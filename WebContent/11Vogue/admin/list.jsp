@@ -17,8 +17,11 @@
 		// 아니면 돌려보내고 맞으면 관리자 환영 메시지를 띄워준다!
 		if(session.getAttribute("auth")!=null){
 			String auth = session.getAttribute("auth").toString();
-			if(auth=="A" || auth=="S"){
+			if(auth.equals("A") || auth.equals("S")){
 				out.println("<h2>관리자님 환영합니다!</h2>");
+			}
+			else{
+				out.println("<h2>ㅎㅎㅎ</h2>");
 			}
 			
 		}
