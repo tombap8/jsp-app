@@ -12,6 +12,19 @@
 </head>
 
 <body>
+	<%
+		// 세션변수가 셋팅되었고 auth 데이터가 "A" 또는 "S"가
+		// 아니면 돌려보내고 맞으면 관리자 환영 메시지를 띄워준다!
+		if(session.getAttribute("auth")!=null){
+			String auth = session.getAttribute("auth").toString();
+			if(auth=="A" || auth=="S"){
+				out.println("<h2>관리자님 환영합니다!</h2>");
+			}
+			
+		}
+	
+	
+	%>
     
     <!--My Item 회원 리스트 테이블-->
     <table id="drama" class="tbl">
