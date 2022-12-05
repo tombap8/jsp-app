@@ -35,6 +35,10 @@ public class ListController {
 	public String setList(String pgNum, String pmCol, String pmKey) {
 		// pgNum - 페이지번호 / pmCol - 검색항목 / pmKey - 검색어
 
+		// 파라미터 전달값 확인!
+		System.out.println("페이지번호:"+pgNum
+				+"\n검색항목:"+pmCol+"\n검색어:"+"/"+pmKey);
+		
 		// DB레코드결과변수
 		String result = "";
 

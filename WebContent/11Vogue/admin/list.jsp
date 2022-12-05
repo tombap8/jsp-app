@@ -83,7 +83,7 @@
         <!--테이블 본문-->
         <!--tbody는 일반 테이블에 안써도 출력됨-->
         <tbody>
-            <%=listcon.setList(pgNum)%>
+            <%=listcon.setList(pgNum,pmCol,pmKey)%>
         </tbody>
         
         <!--테이블 끝줄-->
