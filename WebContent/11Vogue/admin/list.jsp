@@ -91,6 +91,14 @@
    
     </table>
 
+	<!-- 검색박스 -->
+	<!-- 검색항목 선택 select박스 -->
+	<select name="selcol" id="selcol">
+		<option value="name">이름</option>
+		<option value="mid">아이디</option>
+	</select>
+	<input type="text" name="keyword" id="keyword">
+	<button id="sbtn">검색하기</button>
 
 
     <!--구분테이블 박스-->
