@@ -30,8 +30,10 @@ public class ListController {
 	///////////////////////////////////
 	// 리스트 뷰를 구성하여 리턴하는 메서드 ///
 	///////////////////////////////////
-	public String setList(String pgNum) {
-		// pgNum은 리스트 페이지에서 생성시 파라미터값을 전달해 준다!
+	// pgNum은 리스트 페이지에서 생성시 파라미터값을 전달해 준다!
+	// 검색어 관련 파라미터 pmCol, pmKey 를 전달해 준다!
+	public String setList(String pgNum, String pmCol, String pmKey) {
+		// pgNum - 페이지번호 / pmCol - 검색항목 / pmKey - 검색어
 
 		// DB레코드결과변수
 		String result = "";

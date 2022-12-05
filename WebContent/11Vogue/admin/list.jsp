@@ -69,6 +69,10 @@
 		String pgNum = request.getParameter("pgnum");
 		if(pgNum==null) pgNum="1";
 		
+		// 검색어관련 파라미터 받기(만약없으면 null값으로 셋팅됨!)
+		String pmCol = request.getParameter("col");
+		String pmKey = request.getParameter("key");
+		
 		// 리스트 컨트롤러 생성하기 ////
 		ListController listcon = new ListController(); 
 
