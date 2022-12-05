@@ -53,8 +53,8 @@ public class ListController {
 			// 1.5. 만약 검색어가 있으면 쿼리 변경!
 			if(pmKey!=null) {
 				query = "SELECT * FROM `member` "
-						+ "WHERE `name` "
-						+ "LIKE \"%영%\" "
+						+ "WHERE `"+pmCol+"` "
+						+ "LIKE \"%"+pmKey+"%\" "
 						+ "ORDER BY `name` ASC LIMIT  ?,?";
 				System.out.println("널이 아냐!");
 			}
