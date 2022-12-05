@@ -3,6 +3,7 @@ package vogue;
 import common.JDBConnector;
 import common.Paging;
 import common.PagingDTO;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
 
 /////////////////////////////////////
 // MVC 모델에서 컨트롤러 역할을 하는 클래스//
@@ -37,7 +38,7 @@ public class ListController {
 
 		// 파라미터 전달값 확인!
 		System.out.println("페이지번호:"+pgNum
-				+"\n검색항목:"+pmCol+"\n검색어:"+"/"+pmKey);
+				+"\n검색항목:"+pmCol+"\n검색어:"+pmKey);
 		
 		// DB레코드결과변수
 		String result = "";
@@ -45,7 +46,18 @@ public class ListController {
 		try {
 
 			// 1. 쿼리문작성 할당
-			String query = "SELECT * FROM `member` ORDER BY `name` ASC LIMIT  ?,?";
+			String query = 
+					"SELECT * FROM `member` "+
+					"ORDER BY `name` ASC LIMIT  ?,?";
+			
+			// 1.5. 만약 검색어가 있으면 쿼리 변경!
+			if(pmKey!=null) {
+				query = "SELECT * FROM `member` "
+						+ "WHERE `name` "
+						+ "LIKE \"%영%\" "
+						+ "ORDER BY `name` ASC LIMIT  ?,?";
+				System.out.println("널이 아냐!");
+			}
 
 			// 2. 쿼리문 연결 사용준비하기
 			jdbc.pstmt = jdbc.conn.prepareStatement(query);
