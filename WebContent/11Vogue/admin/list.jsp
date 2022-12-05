@@ -91,14 +91,16 @@
    
     </table>
 
-	<!-- 검색박스 -->
-	<!-- 검색항목 선택 select박스 -->
-	<select name="selcol" id="selcol">
-		<option value="name">이름</option>
-		<option value="mid">아이디</option>
-	</select>
-	<input type="text" name="keyword" id="keyword">
-	<button id="sbtn">검색하기</button>
+	<!-- 검색박스 -->	
+    <div class="gubun" style="text-align:center;padding:20px 0;">
+		<!-- 검색항목 선택 select박스 -->
+		<select name="selcol" id="selcol">
+			<option value="name">이름</option>
+			<option value="mid">아이디</option>
+		</select>
+		<input type="text" name="keyword" id="keyword">
+		<button id="sbtn">검색하기</button>
+	</div>
 
 
     <!--구분테이블 박스-->
@@ -117,7 +119,20 @@
     <script src="../js/jquery-3.6.1.min.js"></script>
     <script>
     $(()=>{ ///////// jQB ///////////////
-    	// 3. 로그아웃 클릭시 로그아웃하기
+    	// 1. 검색버튼 클릭시 처리하기
+    	$("#sbtn").click(function(){
+    		// 1-1.검색항목 읽어오기
+    		let col = $("#selcol").val();
+    		// 1-2.검색키워드 읽어오기
+    		let key = $("#keyword").val();
+    		// 1-3.검색어관련 파라미터로 list페이지 다시호출하기
+    		// 검색항목 : col=값 / 검색어 : key=값
+    		location.href = 
+    			"list.jsp?pgnum=<%=pgNum%>&col="+col+"&key="+key;
+    		
+    	}); ///////// click ////////////
+    	
+    	// 2. 로그아웃 클릭시 로그아웃하기
         // 주의: linksys.js에 "로그아웃"예외처리필요!
         // 이것을 안해주면 sns중 하나로 분류되어 404새창이 뜸!
         $("#lobtn").click(function(){
