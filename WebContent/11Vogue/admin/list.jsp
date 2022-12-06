@@ -123,12 +123,37 @@
     <script src="../js/jquery-3.6.1.min.js"></script>
     <script>
     $(()=>{ ///////// jQB ///////////////
+    	
+    	// 파라미터 가져오기 메서드 //////////
+    	$.urlParam = function(name) {
+		    let results = new RegExp('[\?&]' 
+		    		+ name + '=([^&#]*)').exec(window.location.href);
+		    if (results==null) {
+		        return null;
+		    } else {
+		        return results[1] || 0;
+		    }
+		} ///////// urlParam 함수 ////////
+    	
+
+    	// 검색요소 변수할당
+    	let selcol = $("#selcol");
+    	let keyword = $("#keyword");
+    	
+    	// 넘어온 파라미터에 key값이 있으면!
+    	if($.urlParam("key")!= null){
+    		// val(값) - 선택요소에 값 셋팅!
+    		selcol.val($.urlParam("col"));
+    		keyword.val(decodeURIComponent($.urlParam("key")));
+    		// decodeURIComponent() -> 2byte 한글 안깨지게 처리
+    	}
+    	
     	// 1. 검색버튼 클릭시 처리하기
     	$("#sbtn").click(function(){
     		// 1-1.검색항목 읽어오기
-    		let col = $("#selcol").val();
+    		let col = selcol.val();
     		// 1-2.검색키워드 읽어오기
-    		let key = $("#keyword").val();
+    		let key = keyword.val();
     		// 1-3.검색어관련 파라미터로 list페이지 다시호출하기
     		// 검색항목 : col=값 / 검색어 : key=값
     		location.href = 

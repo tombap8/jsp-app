@@ -20,7 +20,9 @@ public class ListController {
 	JDBConnector jdbc = new JDBConnector();
 
 	// 페이징 클래스 생성 : 생성시 페이징 대상 테이블명을 보낸다!
-	Paging pg = new Paging("member");
+	Paging pg = null; // 기본 선언만 하고 
+	// 아래 setList메서드에서 3가지 값을 보내준다!
+	
 
 	// 페이징 DTO 클래스 생성
 	PagingDTO pgdto = new PagingDTO();
@@ -39,6 +41,9 @@ public class ListController {
 		// 파라미터 전달값 확인!
 		System.out.println("페이지번호:"+pgNum
 				+"\n검색항목:"+pmCol+"\n검색어:"+pmKey);
+		
+		// 페이징 생성자함수 호출!
+		pg = new Paging("member", pmCol, pmKey);
 		
 		// DB레코드결과변수
 		String result = "";
