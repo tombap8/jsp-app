@@ -135,6 +135,14 @@
     <script src="../js/jquery-3.6.1.min.js"></script>
     <script>
     $(()=>{ ///////// jQB ///////////////
+    	// 키워드 검색 엔터시 버튼클릭 트리거 발생!    	
+    	$("#keyword").focus().keypress(function(e) {
+   		  if (e.keyCode === 13) {
+   		    e.preventDefault();
+   		    $("#sbtn").trigger("click");
+   		  }
+   		});
+    	
     	
     	// 파라미터 가져오기 메서드 //////////
     	$.urlParam = function(name) {
@@ -169,7 +177,8 @@
     		// 1-3.검색어관련 파라미터로 list페이지 다시호출하기
     		// 검색항목 : col=값 / 검색어 : key=값
     		location.href = 
-    			"list.jsp?pgnum=<%=pgNum%>&col="+col+"&key="+key;
+    			"list.jsp?pgnum=1&col="+col+"&key="+key;
+    		// 검색후 리스트는 첫페이지로 무조건 나오게함!
     		
     	}); ///////// click ////////////
     	
