@@ -91,6 +91,10 @@
             		out.print("<tr><td style=\"text-align:center\" "
             	        	+"colspan=\"6\">데이터가 없습니다!</td></tr>");
             	}
+            	// 결과 리스트가 있는 경우 출력
+            	else{
+            		out.print(showList);
+            	}
             %>
         </tbody>
         
