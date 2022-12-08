@@ -190,6 +190,7 @@ public class Paging {
 		
 
 		// ##### 다음블록가기 #######
+		// 조건: 현재블록순번+1 < 리스트그룹수/단위블록수+남은블록수
 		if(Integer.parseInt(numBk)+1 < 
 				pgdto.getListGroup()/pgdto.getOneBlockCnt()
 				+pgdto.getEtcBlock()) {
