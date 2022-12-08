@@ -231,7 +231,7 @@ public class Paging {
 			pgCode += "<a href='list.jsp?pgnum=" 
 					+ ((Integer.parseInt(numBk)*pgdto.getOneBlockCnt())+1); 
 			pgCode += "&bknum=" + ((pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
-					+pgdto.getEtcBlock())+1); 
+					+pgdto.getEtcBlock())); 
 			if(keyPm!=null) {
 				pgCode += "&col="+colPm+"&key="+keyPm;
 			}
