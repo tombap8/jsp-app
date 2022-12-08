@@ -145,15 +145,14 @@ public class Paging {
 
 		// ######## 처음블록가기 ##########
 		if (Integer.parseInt(numBk) - 1 > 0) {
-			pgCode += "<a href='list.jsp?pgnum="
-					+ (((Integer.parseInt(numBk) - 1) * pgdto.getOneBlockCnt()) - (pgdto.getOneBlockCnt() - 1));
+			pgCode += "<a href='list.jsp?pgnum=1";
 			pgCode += "&bknum=1";
 			if (keyPm != null) {
 				pgCode += "&col=" + colPm + "&key=" + keyPm;
 			}
-			pgCode += "'>☎</a> ";
+			pgCode += "'>«</a> ";
 		} else {
-			pgCode += "☏ ";
+			pgCode += "<span style='opacity:.5'>«</span> ";
 		}
 		
 		// ######## 이전블록가기 ##########
@@ -205,11 +204,16 @@ public class Paging {
 		} ////////// for //////////////
 		
 
+		
+		// 마지막 블록번호 : 블록그룹수 + 나머지 블록수
+		int lastBlockNum = pgdto.getBlockGroup()+pgdto.getEtcBlock();
+		System.out.println("마지막블록번호:"+lastBlockNum);
+
+		// 마지막 페이지번호 : 마지막 블록 전번호 * 한 페이지당 블록수 + 1
+		int lastPgNum = (lastBlockNum-1)*pgdto.getOneBlockCnt()+1;
+		
 		// ##### 다음블록가기 #######
-		// 조건: 현재블록순번+1 <= (리스트그룹수+남은레코드수)/(단위블록수+남은블록수)
-		if(Integer.parseInt(numBk)+1 <= 
-				(pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
-				+pgdto.getEtcBlock())) {
+		if(Integer.parseInt(numBk)+1 <= lastBlockNum) {
 			pgCode += "<a href='list.jsp?pgnum=" 
 		+ ((Integer.parseInt(numBk)*pgdto.getOneBlockCnt())+1); 
 			pgCode += "&bknum=" + (Integer.parseInt(numBk)+1); 
@@ -224,21 +228,16 @@ public class Paging {
 		// ######################
 		
 		// ##### 마지막블록가기 #######
-		// 조건: 현재블록순번+1 <= (리스트그룹수+남은레코드수)/(단위블록수+남은블록수)
-		if(Integer.parseInt(numBk)+1 <= 
-				(pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
-						+pgdto.getEtcBlock())) {
-			pgCode += "<a href='list.jsp?pgnum=" 
-					+ ((Integer.parseInt(numBk)*pgdto.getOneBlockCnt())+1); 
-			pgCode += "&bknum=" + ((pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
-					+pgdto.getEtcBlock())); 
+		if(Integer.parseInt(numBk)+1 <= lastBlockNum) {
+			pgCode += "<a href='list.jsp?pgnum=" + lastPgNum; 
+			pgCode += "&bknum=" + lastBlockNum; //맨마지막 블록으로 이동!
 			if(keyPm!=null) {
 				pgCode += "&col="+colPm+"&key="+keyPm;
 			}
-			pgCode += "'>☎</a>";
+			pgCode += "'>»</a>";
 		}
 		else {
-			pgCode += " ☏";
+			pgCode += " <span style='opacity:.5'>»</span>";
 		}
 		// ######################
 		
