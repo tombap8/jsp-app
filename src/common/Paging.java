@@ -143,6 +143,19 @@ public class Paging {
 		if (bkLimit > pgdto.getListGroup())
 			bkLimit = pgdto.getListGroup() + (pgdto.getEtcRecord() > 0 ? 1 : 0);
 
+		// ######## 처음블록가기 ##########
+		if (Integer.parseInt(numBk) - 1 > 0) {
+			pgCode += "<a href='list.jsp?pgnum="
+					+ (((Integer.parseInt(numBk) - 1) * pgdto.getOneBlockCnt()) - (pgdto.getOneBlockCnt() - 1));
+			pgCode += "&bknum=1";
+			if (keyPm != null) {
+				pgCode += "&col=" + colPm + "&key=" + keyPm;
+			}
+			pgCode += "'>☎</a> ";
+		} else {
+			pgCode += "☏ ";
+		}
+		
 		// ######## 이전블록가기 ##########
 		if (Integer.parseInt(numBk) - 1 > 0) {
 			pgCode += "<a href='list.jsp?pgnum="
@@ -193,10 +206,10 @@ public class Paging {
 		
 
 		// ##### 다음블록가기 #######
-		// 조건: 현재블록순번+1 < 리스트그룹수/단위블록수+남은블록수
-		if(Integer.parseInt(numBk)+1 < 
-				pgdto.getListGroup()/pgdto.getOneBlockCnt()
-				+pgdto.getEtcBlock()) {
+		// 조건: 현재블록순번+1 <= (리스트그룹수+남은레코드수)/(단위블록수+남은블록수)
+		if(Integer.parseInt(numBk)+1 <= 
+				(pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
+				+pgdto.getEtcBlock())) {
 			pgCode += "<a href='list.jsp?pgnum=" 
 		+ ((Integer.parseInt(numBk)*pgdto.getOneBlockCnt())+1); 
 			pgCode += "&bknum=" + (Integer.parseInt(numBk)+1); 
@@ -207,6 +220,25 @@ public class Paging {
 		}
 		else {
 			pgCode += " ▷";
+		}
+		// ######################
+		
+		// ##### 마지막블록가기 #######
+		// 조건: 현재블록순번+1 <= (리스트그룹수+남은레코드수)/(단위블록수+남은블록수)
+		if(Integer.parseInt(numBk)+1 <= 
+				(pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
+						+pgdto.getEtcBlock())) {
+			pgCode += "<a href='list.jsp?pgnum=" 
+					+ ((Integer.parseInt(numBk)*pgdto.getOneBlockCnt())+1); 
+			pgCode += "&bknum=" + ((pgdto.getListGroup()+pgdto.getEtcRecord())/(pgdto.getOneBlockCnt()
+					+pgdto.getEtcBlock())+1); 
+			if(keyPm!=null) {
+				pgCode += "&col="+colPm+"&key="+keyPm;
+			}
+			pgCode += "'>☎</a>";
+		}
+		else {
+			pgCode += " ☏";
 		}
 		// ######################
 		
