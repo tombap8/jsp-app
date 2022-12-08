@@ -9,20 +9,23 @@ public class Paging {
 	// DB연결 클래스 생성하기
 	JDBConnector jdbc = new JDBConnector();
 	// 파라미터 공유변수(다른메서드에서도 사용)
-	public static String colPm, keyPm;
+	public static String colPm, keyPm, numBk;
 	// colPm - 파라미터 pmCol을 담는다
 	// keyPm - 파라미터 pmKey를 담는다
+	// numBk - 페이징블록순번
 
 	///////////////////////
 	// 생성자 메서드 /////////
 	///////////////////////
 	// 역할: 인스턴스 생성시 바로 실행하므로 기본 변수값을 모두 셋팅한다!
-	public Paging(String tbName, String pmCol, String pmKey) { 
-		// tbName - 페이징대상테이블 / pmCol - 검색항목 / pmKey - 검색어
+	public Paging(String tbName,String bkNum, String pmCol, String pmKey) { 
+		// tbName - 페이징대상테이블 / bkNum - 페이징블록순번 / pmCol - 검색항목 / pmKey - 검색어
 		
 		// pmCol과 pmKey 전달변수를 전역변수에 할당!
 		colPm = pmCol;
 		keyPm = pmKey;
+		// 전달된 페이징블록순번도 전역변수에 할당!
+		numBk = bkNum;
 
 		/********************************* 
 		15. 페이징 링크 생성하기
@@ -74,6 +77,19 @@ public class Paging {
 			pgdto.getEtcRecord() == 0 ? 
 			pgdto.getListGroup() : pgdto.getListGroup() + 1);
 			// 나머지가 있으면 1페이지 더 추가!
+			
+
+			// ####### 페이징 블록 셋팅하기 ########
+			// 8.페이징 단위개수(oneBlockCnt)
+			// 9.페이징 그룹수 : (리스트그룹수+남은레코드수) ÷ 페이징 단위개수 (blockGroup)
+			pgdto.setBlockGroup(
+			(pgdto.getListGroup()+pgdto.getEtcRecord())/pgdto.getOneBlockCnt());
+			// 10.남은 페이징수 : (리스트그룹수+남은레코드수) % 페이징 단위개수 (etcBlock)
+			pgdto.setEtcBlock(
+			(pgdto.getListGroup()+pgdto.getEtcRecord())%pgdto.getOneBlockCnt());
+			
+
+
 
 
 		} /// try ////
