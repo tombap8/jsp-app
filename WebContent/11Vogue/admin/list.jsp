@@ -69,6 +69,10 @@
 		String pgNum = request.getParameter("pgnum");
 		if(pgNum==null) pgNum="1";
 		
+		// 페이징블록 파라미터 받기(만약없으면 null이므로 "1"할당!)
+		String bkNum = request.getParameter("bknum");
+		if(bkNum==null) bkNum="1";
+		
 		// 검색어관련 파라미터 받기(만약없으면 null값으로 셋팅됨!)
 		String pmCol = request.getParameter("col");
 		String pmKey = request.getParameter("key");
@@ -77,7 +81,7 @@
 		ListController listcon = new ListController(); 
 
 		// 결과 리스트를 변수에 할당
-		String showList = listcon.setList(pgNum,pmCol,pmKey);
+		String showList = listcon.setList(pgNum,bkNum,pmCol,pmKey);
 		
 		/////////////////////////////////////////////////
 		%>
