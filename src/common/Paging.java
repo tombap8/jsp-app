@@ -100,6 +100,9 @@ public class Paging {
 		System.out.println("# 페이지당개수:" + pgdto.getOnePageCnt() + "개");
 		System.out.println("# 리스트 그룹수:" + pgdto.getListGroup() + "개");
 		System.out.println("# 남은 레코드수:" + pgdto.getEtcRecord() + "개");
+		System.out.println("# 페이징 단위개수:" + pgdto.getOneBlockCnt() + "개");
+		System.out.println("# 페이징 그룹수:" + pgdto.getBlockGroup() + "개");
+		System.out.println("# 남은 페이징수:" + pgdto.getEtcBlock() + "개");
 
 	} /////// 생성자 메서드 ///////
 
