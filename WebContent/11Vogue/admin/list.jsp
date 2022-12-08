@@ -105,7 +105,7 @@
         <!--테이블 끝줄-->
         <tfoot>
             <tr>
-                <td colspan="6">◀ <%=listcon.setPaging()%> ▶</td>
+                <td colspan="6"><%=listcon.setPaging()%></td>
             </tr>
         </tfoot>
    
