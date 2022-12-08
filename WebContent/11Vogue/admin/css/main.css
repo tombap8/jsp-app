@@ -123,3 +123,16 @@ table#gubun td {
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 }
+
+/* 하단 페이징 링크 처리 */
+#drama tfoot a {
+    /* 글자색 c */
+    color: #222;
+    /* 밑줄없앰 tdn */
+    text-decoration: none;
+}
+/* 하단 페이징 오버시 */
+#drama tfoot a:hover {
+    /* 글자색 c */
+    color: blueviolet;
+}
