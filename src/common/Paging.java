@@ -162,7 +162,10 @@ public class Paging {
 		// ########################
 
 		// 15-4. 페이징 링크 코드 만들기
-		for (int i = 0; i < pgdto.getLimit(); i++) {
+//		for (int i = 0; i < pgdto.getLimit(); i++) {
+		// 모든페이징을 그리지말고 현재 블록만큼만 for문을 돌아야하므로
+		// bkStart 계산변수를 시작값으로하고 bkLimit 계산값을 한계값으로 넣어준다!
+		for (int i = bkStart; i < bkLimit; i++) {
 			// 만약 현재 페이지와 같은 번호는 a링크 걸지말고
 			// b태그로 두꺼운 글자 표시만 해주자!
 			if (i == pgdto.getPageSeq() - 1) { // i는 0부터니까 1뺌
