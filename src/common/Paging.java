@@ -150,7 +150,7 @@ public class Paging {
 			if (keyPm != null) {
 				pgCode += "&col=" + colPm + "&key=" + keyPm;
 			}
-			pgCode += "'>«</a> ";
+			pgCode += "' title='처음블록'>«</a> ";
 		} else {
 			pgCode += "<span style='opacity:.5'>«</span> ";
 		}
@@ -163,7 +163,7 @@ public class Paging {
 			if (keyPm != null) {
 				pgCode += "&col=" + colPm + "&key=" + keyPm;
 			}
-			pgCode += "'>◀</a> ";
+			pgCode += "' title='이전블록'>◀</a> ";
 		} else {
 			pgCode += "◁ ";
 		}
@@ -205,8 +205,8 @@ public class Paging {
 		
 
 		
-		// 마지막 블록번호 : 블록그룹수 + 나머지 블록수
-		int lastBlockNum = pgdto.getBlockGroup()+pgdto.getEtcBlock();
+		// 마지막 블록번호 : 블록그룹수 + 나머지 블록수가 있으면 1블록 더함!
+		int lastBlockNum = pgdto.getBlockGroup()+(pgdto.getEtcBlock()>0?1:0);
 		System.out.println("마지막블록번호:"+lastBlockNum);
 
 		// 마지막 페이지번호 : 마지막 블록 전번호 * 한 페이지당 블록수 + 1
@@ -220,7 +220,7 @@ public class Paging {
 			if(keyPm!=null) {
 				pgCode += "&col="+colPm+"&key="+keyPm;
 			}
-			pgCode += "'>▶</a>";
+			pgCode += "' title='다음블록'>▶</a>";
 		}
 		else {
 			pgCode += " ▷";
@@ -229,12 +229,12 @@ public class Paging {
 		
 		// ##### 마지막블록가기 #######
 		if(Integer.parseInt(numBk)+1 <= lastBlockNum) {
-			pgCode += "<a href='list.jsp?pgnum=" + lastPgNum; 
+			pgCode += "<a href='list.jsp?pgnum=" + lastPgNum;
 			pgCode += "&bknum=" + lastBlockNum; //맨마지막 블록으로 이동!
 			if(keyPm!=null) {
 				pgCode += "&col="+colPm+"&key="+keyPm;
 			}
-			pgCode += "'>»</a>";
+			pgCode += "' title='마지막블록'>»</a>";
 		}
 		else {
 			pgCode += " <span style='opacity:.5'>»</span>";
